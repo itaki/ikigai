@@ -8,15 +8,15 @@ class PCA9685:
         self.i2c_address = int(config['i2c_address'], 16)
         self.mode = config.get('purpose', 'LED Control')  # Default to LED Control if not specified
 
-        # Initialize PCA9685
+        # Initialize the Adafruit PCA9685 object
         self.pca = Adafruit_PCA9685(i2c, address=self.i2c_address)
 
         if self.mode == 'Servo Control':
-            frequency = config.get('frequency', 50)  # 50Hz is typical for servo control
+            frequency = config.get('frequency', 50)  # Default to 50Hz for servos
             self.set_frequency(frequency)
             logger.info(f"     🔮 Initialized PCA9685 at address {hex(self.i2c_address)} in Servo Control mode with frequency {frequency}Hz as board ID {config['id']}")
         else:
-            frequency = config.get('frequency', 1000)  # 1000Hz is typical for LED control
+            frequency = config.get('frequency', 1000)  # Default to 1000Hz for LEDs
             self.set_frequency(frequency)
             logger.info(f"     🔮 Initialized PCA9685 at address {hex(self.i2c_address)} in LED Control mode with frequency {frequency}Hz as board ID {config['id']}")
 

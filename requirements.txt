@@ -1,5 +1,6 @@
 # Basic dependencies
 logging
+loguru
 
 # Adafruit CircuitPython libraries
 Adafruit-Blinka                  # This is the CircuitPython compatibility layer
