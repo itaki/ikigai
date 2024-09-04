@@ -1,33 +1,53 @@
 from utils.config_loader import ConfigLoader
-from board_manager import BoardManager  # Import the new BoardManager class
+from boards.board_manager import BoardManager
+from gui.main_window import MainWindow  # Import the main window for the GUI
 from loguru import logger
 import busio
 import board
+import sys
+from PyQt6.QtWidgets import QApplication
+
+# Configuration flags
+USE_GUI = False
+USE_AD_CONVERTERS = False
+USE_BUTTONS = True
+USE_SERVOS = True 
+USE_RGB_LEDS = True
+
+use_boards = {
+    "USE_AD_CONVERTERS": USE_AD_CONVERTERS,
+    "USE_BUTTONS": USE_BUTTONS,
+    "USE_SERVOS": USE_SERVOS,
+    "USE_RGB_LEDS": USE_RGB_LEDS
+}   
 
 # Configure Loguru logger
-logger.add("logs/shop_manager.log", rotation="1 MB")  # Save logs to a file, rotate when file size exceeds 1 MB
+logger.add("logs/shop_manager.log", rotation="1 MB")
 
 def main():
     try:
         logger.info("🔧 Starting the shop management application...")
 
-        # Initialize the configuration loader
+        # Load configuration
         config_loader = ConfigLoader()
         config_loader.reload_configs()
 
-        # Retrieve the boards configuration
-        boards_config = config_loader.get_boards()
-
-        # Set up I2C interface
+        # Initialize I2C interface
         i2c = busio.I2C(board.SCL, board.SDA)
 
-        # Initialize the BoardManager with I2C
+        # Initialize the board manager
         board_manager = BoardManager(i2c)
+        boards_config = config_loader.get_boards()
+        board_manager.initialize_all_boards(boards_config, use_boards)
 
-        # Initialize all boards
-        board_manager.initialize_all_boards(boards_config)
+        if USE_GUI:
+            # Initialize the GUI
+            app = QApplication(sys.argv)
+            window = MainWindow(board_manager)  # Pass the BoardManager to the GUI
+            window.show()
 
-        # Application logic can be added here, using the initialized boards from the board_manager
+        # Start the GUI event loop
+        sys.exit(app.exec_())
 
     except Exception as e:
         logger.error(f"💢 An error occurred in the shop management application: {str(e)}")

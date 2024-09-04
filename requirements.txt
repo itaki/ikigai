@@ -2,6 +2,9 @@
 logging
 loguru
 
+# GUI
+PyQt6
+PyQt6-tools
 # Adafruit CircuitPython libraries
 Adafruit-Blinka                  # This is the CircuitPython compatibility layer
 Adafruit-PlatformDetect          # Used by Blinka to detect the platform you're running on
@@ -18,3 +21,4 @@ smbus2                           # SMBus support, often used with I2C on Raspber
 
 # Testing and utilities
 pytest                           # For testing
+

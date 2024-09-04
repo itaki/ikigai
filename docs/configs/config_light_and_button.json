@@ -1,0 +1,45 @@
+{
+    "info" : [
+        { "name" : "Mike's light and button shop" }
+    ],
+    "hardware" : [],
+    "devices" : [
+        {
+            "label" : "Left Miter Saw Button",
+            "id" : "left-miter-saw-button",
+            "type" : "SimpleButton",
+            "physical_location" : "Above miter saw on left",
+            "connection" : {
+                "bus" : "GPIO",
+                "address" : { 
+                    "pin" : 22
+                }
+            },
+            "preferences" : {},
+            "subscriptions" : []
+        },
+        {
+            "label" : "Miter Saw Light",
+            "id" : "miter-saw-light",
+            "type" : "LedLight",
+            "physical_location" : "light attached to pi",
+            "connection" : {
+                "bus" : "GPIO",
+                "address" : { 
+                    "pin" : 21
+                }
+            },
+            "preferences" : {
+                "auto_turn_enable" : true,
+                "auto_turn_off_duration" : 300
+            },
+            "subscriptions" : [
+                {
+                    "listen_to" : "left-miter-saw-button",
+                    "listen_for" : "PRESSED",
+                    "do_this" : "TURN_ON"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,315 @@
+{
+    "info" : [
+        { "name" : "Mike's Realistically Built Out Shop" }
+    ],
+    "hardware" : [
+        {
+            "label" : "WestWall AD Converter",
+            "id" : "west-wall-ad-converter",
+            "type" : "ad_converter",
+            "physical_location" : "Next to the pi",
+            "connection" : 
+                {
+                    "bus" : "I2C",
+                    "model" : "ADS1115",
+                    "address" :    
+                        { 
+                            "board" : 72
+                        },
+                    "required" : 
+                        [
+                            "pyusb",
+                            "Adafruit-extended-bus", 
+                            "adafruit-circuitpython-ads1x15"
+                        ] 
+                }
+        },   
+        {
+            "label" : "Island AD Converter",
+            "id" : "island-ad-converter",
+            "type" : "ad_converter",
+            "physical_location" : "Hi up on island brance",
+            "connection" : 
+                {
+                    "bus" : "I2C",
+                    "model" : "ADS1115",
+                    "address" :    
+                        { 
+                            "board" : 73
+                        },
+                    "required" : 
+                        [
+                            "pyusb",
+                            "Adafruit-extended-bus", 
+                            "adafruit-circuitpython-ads1x15"
+                        ] 
+                }
+        }, 
+        {
+            "label" : "Bench AD Converter",
+            "id" : "bench-ad-converter",
+            "type" : "ad_converter",
+            "physical_location" : "On the bench at the island branch",
+            "connection" : 
+                {
+                    "bus" : "I2C",
+                    "model" : "ADS1115",
+                    "address" :    
+                        { 
+                            "board" : 74
+                        },
+                    "required" : 
+                        [
+                            "pyusb",
+                            "Adafruit-extended-bus", 
+                            "adafruit-circuitpython-ads1x15"
+                        ] 
+                }
+        },
+        {
+            "label" : "West Wall Servo Hat",
+            "id" : "west-wall-servo-hat",
+            "type" : "servohat",
+            "physical_location" : "Attached directly to pi",
+            "connection" : 
+                {
+                    "bus" : "I2C",
+                    "model" : "PCA9685",
+                    "address" :    
+                        {   
+                            "board" : 64
+                        },
+                    "required" : 
+                        [
+                            "adafruit-circuitpython-servokit"
+                        ] 
+                }
+        },
+        {
+            "label" : "Island Servo Hat",
+            "id" : "island-servo-hat",
+            "type" : "servohat",
+            "physical_location" : "At the island",
+            "connection" : 
+                {
+                    "bus" : "I2C",
+                    "model" : "PCA9685",
+                    "address" :    
+                        {   
+                            "board" : 67
+                        },
+                    "required" : 
+                        [
+                            "adafruit-circuitpython-servokit"
+                        ] 
+                }
+        }
+
+    ],
+    "devices" : [
+        {
+            "label" : "Miter Saw Voltage sensor",
+            "id" : "miter-saw-voltage-sensor",
+            "type" : "voltage_sensor",
+            "physical_location" : "Mitersaw plug",
+            "connection" : 
+                {
+                    "bus" : "I2C",
+                    "address" : 
+                        {
+                            "id" : "west-wall-ad-converter",                                                                                                                                                                                                                                                                                                                                                                                        
+                            "board" : 73,
+                            "pin" : "P0"
+                        },
+                    "required" : 
+                        [
+
+                        ]                
+                },
+            "preferences" : 
+                {
+                    "broadcast" : true,
+                    "subscriptions" : []
+                
+                }
+        },
+        {
+            "label" : "Band Saw Voltage sensor",
+            "id" : "band-saw-voltage-sensor",
+            "type" : "voltage_sensor",
+            "physical_location" : "Band saw plug",
+            "connection" : 
+                {
+                    "bus" : "I2C",
+                    "address" : 
+                        {
+                            "id" : "west-wall-ad-converter",                                                                                                                                                                                                                                                                                                                                                                                 
+                            "board" : 73,
+                            "pin" : "P0"
+                        }
+                 },
+            "preferences" : 
+                {            
+                    "broadcast" : true,
+                    "subscriptions" : []
+                
+                }
+        },
+       
+        {
+            "label" : "Left Miter Saw Button",
+            "id" : "left-miter-saw-button",
+            "type" : "button",
+            "physical_location" : "Above miter saw on left",
+            "connection" : 
+                {
+                    "bus" : "GPIO",
+                    "address" :    
+                        { 
+                            "pin" : 22
+                        }
+                },
+            
+            "preferences" : 
+                {
+                    "broadcast" : true,
+                    "subscriptions" : [],
+                    "shutdown": 45
+                }
+
+        },
+        {
+            "label" : "Miter Saw Light",
+            "id" : "miter-saw-light",
+            "type" : "light_relay",
+            "physical_location" : "Relay on miter plug",
+            "connection" : 
+                {
+                    "bus" : "GPIO",
+                    "address" :    
+                        { 
+                            "pin" : 21
+                        }
+                },
+            
+            "preferences" : 
+                {  
+                    "broadcast" : false,
+                    "subscriptions" : 
+                        [
+                            "miter-saw-voltage-sensor"
+                        ],
+                    "shutdown" : 300
+                }
+
+        },
+        {
+            "label" : "Left Side Miter Button Light",
+            "id" : "left-side-miter-button-light",
+            "type" : "rgbled",
+            "physical_location" : "Left side miter button",
+            "connection" : 
+                {
+                    "bus" : "GPIO",
+                    "address" :    
+                        { 
+                            "rpin" : 17,
+                            "gpin" : 18, 
+                            "bpin" : 19
+                        }
+                },
+            
+            "preferences" : 
+                {  
+                    "broadcast" : false,
+                    "subscriptions" : 
+                        [
+                            "miter-saw-voltage-sensor"
+                        ],
+                    "on" : 
+                        {
+                            "type" : "pulse",
+                            "rhigh" : 100,
+                            "ghigh" : 100,
+                            "bhigh" : 100,
+                            "rlow" : 10,
+                            "glow" : 10,
+                            "blow" : 10
+                        },
+                    "off" : 
+                        {
+                            "type" : "steady",
+                            "red" : 10,
+                            "green" : 10,
+                            "blue" : 10
+                        },
+                    "shutdown" : 
+                        {
+                            "type" : "pulse",
+                            "rhigh" : 80,
+                            "ghigh" : 40,
+                            "bhigh" : 100,
+                            "rlow" : 10,
+                            "glow" : 10,
+                            "blow" : 10
+                        }
+
+                }
+
+        },  
+        {
+            "label" : "Miter Saw Gate",
+            "id" : "miter-saw-gate",
+            "type" : "gate",
+            "physical_location" : "Gate below miter saw",
+            "connection" : 
+                {
+                    "bus" : "I2C",
+                    "address" :    
+                        { 
+                            "id" : "island-servo-hat",
+                            "board" : 64,
+                            "pin" : 21
+                        }
+                },
+            "preferences" : 
+                {  
+                    "broadcast" : false,
+                    "subscriptions" : 
+                        [
+                            "miter-saw-voltage-sensor",
+                            "dust-collector"
+                        ],
+                    "shutdown" : 300
+                }
+
+        }, 
+        {
+            "label" : "Dusty",
+            "id" : "dust-collector",
+            "type" : "dust_collector",
+            "physical_location" : "Relay plug at dust collector",
+            "connection" : 
+                {
+                    "bus" : "GPIO",
+                    "address" :    
+                        { 
+                            "pin" : 20
+                        }
+                },
+            "preferences" : 
+                {  
+                    "broadcast" : true,
+                    "subscriptions" : 
+                        [
+                            "miter-saw-voltage-detector",
+                            "miter-saw-left-button",
+                            "table-saw-voltage-detector",
+                            "band-saw-voltage-detector",
+                            "shop-hose-button"
+                        ],
+                    "shutdown" : 300
+                }
+        }
+    ]
+}

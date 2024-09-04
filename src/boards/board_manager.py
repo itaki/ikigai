@@ -10,13 +10,13 @@ class BoardManager:
         self.i2c = i2c  # Pass the I2C interface to the class
         self.boards = {}
 
-    def initialize_board(self, board_config):
+    def initialize_board(self, board_config, use_boards):
         """Initialize a board based on its type and full configuration."""
         board_type = board_config.get('type')
         label = board_config.get('label')
 
         try:
-            if board_type == "MCP23017":
+            if board_type == "MCP23017" and use_boards.USE_BUTTONS:
                 board = MCP23017(self.i2c, board_config)  # Pass the entire config to your MCP23017 class
             elif board_type == "PCA9685":
                 board = PCA9685(self.i2c, board_config)  # Pass the entire config to your PCA9685 class
