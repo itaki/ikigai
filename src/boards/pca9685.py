@@ -1,24 +1,25 @@
 from adafruit_pca9685 import PCA9685 as Adafruit_PCA9685
-import logging
-
-logger = logging.getLogger(__name__)
+from loguru import logger
 
 class PCA9685:
-    def __init__(self, i2c, config):
+    def __init__(self, i2c, config, app_config):
         self.i2c_address = int(config['i2c_address'], 16)
         self.mode = config.get('purpose', 'LED Control')  # Default to LED Control if not specified
 
-        # Initialize the Adafruit PCA9685 object
-        self.pca = Adafruit_PCA9685(i2c, address=self.i2c_address)
-
-        if self.mode == 'Servo Control':
-            frequency = config.get('frequency', 50)  # Default to 50Hz for servos
-            self.set_frequency(frequency)
-            logger.info(f"     🔮 Initialized PCA9685 at address {hex(self.i2c_address)} in Servo Control mode with frequency {frequency}Hz as board ID {config['id']}")
-        else:
-            frequency = config.get('frequency', 1000)  # Default to 1000Hz for LEDs
-            self.set_frequency(frequency)
-            logger.info(f"     🔮 Initialized PCA9685 at address {hex(self.i2c_address)} in LED Control mode with frequency {frequency}Hz as board ID {config['id']}")
+        try:
+            # Initialize the Adafruit PCA9685 object
+            self.pca = Adafruit_PCA9685(i2c, address=self.i2c_address)
+            if self.mode == 'Servo Control':
+                frequency = config.get('frequency', 50)  # Default to 50Hz for servos
+                self.set_frequency(frequency)
+                logger.info(f"🔮 Initialized PCA9685 at address {hex(self.i2c_address)} in Servo Control mode with frequency {frequency}Hz as board ID {config['id']}")
+            else:
+                frequency = config.get('frequency', 1000)  # Default to 1000Hz for LEDs
+                self.set_frequency(frequency)
+                logger.info(f"🔮 Initialized PCA9685 at address {hex(self.i2c_address)} in LED Control mode with frequency {frequency}Hz as board ID {config['id']}")
+        except Exception as e:
+            logger.error(f"💢 Failed to initialize PCA9685 at address {hex(self.i2c_address)}: {str(e)}")
+            raise e
 
     @property
     def channels(self):

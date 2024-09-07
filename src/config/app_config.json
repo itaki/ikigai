@@ -1,0 +1,26 @@
+{
+    "USE_GUI": false,
+    "USE_BOARDS": {
+        "USE_ADS1115": true,
+        "USE_MCP23017": true,
+        "USE_PCA9685": true
+    },
+    "USE_DEVICES": {
+        "USE_VOLTAGE_SENSORS": true,
+        "USE_BUTTONS": true,
+        "USE_RGB_LEDS": true,
+        "USE_DUST_COLLECTORS": true,
+        "USE_RELAYS": false,
+        "USE_GATES": true
+    },
+    "ADS1115_SETTINGS": {
+        "FAST_DATA_RATE": 860,
+        "NORMAL_DATA_RATE": 128,
+        "INITIAL_READINGS": 100
+    },
+    "VOLTAGE_SENSOR_SETTINGS": {
+        "WINDOW_SIZE": 40,
+        "DEFAULT_THRESHOLD_DEVIATION": 1.5,
+        "MAX_ERRORS": 10
+    }
+}

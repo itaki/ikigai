@@ -1,73 +1,52 @@
 import json
 import os
-import logging
-
-logger = logging.getLogger("shop_logger")
+from loguru import logger
 
 class ConfigLoader:
-    def __init__(self, config_path='config/config.json', gates_config_path='config/gates.json'):
-        self.config_path = config_path
-        self.gates_config_path = gates_config_path
-        self.config = {}
-        self.gates_config = {}
-
-    def load_config(self):
-        """Load the main configuration file."""
-        if not os.path.exists(self.config_path):
-            logger.error(f"Config file not found: {self.config_path}")
-            raise FileNotFoundError(f"Config file not found: {self.config_path}")
-        
-        with open(self.config_path, 'r') as file:
-            self.config = json.load(file)
-            logger.debug(f"Main configuration loaded from {self.config_path}")
-            self.validate_config(self.config)
-
-    def load_gates_config(self):
-        """Load the gates configuration file."""
-        if not os.path.exists(self.gates_config_path):
-            logger.error(f"Gates config file not found: {self.gates_config_path}")
-            raise FileNotFoundError(f"Gates config file not found: {self.gates_config_path}")
-        
-        with open(self.gates_config_path, 'r') as file:
-            self.gates_config = json.load(file)
-            logger.debug(f"Gates configuration loaded from {self.gates_config_path}")
-            self.validate_gates_config(self.gates_config)
-
-    def validate_config(self, config):
-        """Validate the main configuration."""
-        required_keys = ['boards', 'tools']
-        for key in required_keys:
-            if key not in config:
-                logger.error(f"Missing required key in config: {key}")
-                raise ValueError(f"Missing required key in config: {key}")
-        logger.debug("Main configuration validation passed.")
-
-    def validate_gates_config(self, gates_config):
-        """Validate the gates configuration."""
-        required_keys = ['gates']
-        for key in required_keys:
-            if key not in gates_config:
-                logger.error(f"Missing required key in gates config: {key}")
-                raise ValueError(f"Missing required key in gates config: {key}")
-        logger.debug("Gates configuration validation passed.")
-
-    def get_boards(self):
-        """Return the boards configuration."""
-        return self.config.get('boards', [])
-
-    def get_tools(self):
-        """Return the tools configuration."""
-        return self.config.get('tools', [])
-
-    def get_gates(self):
-        """Return the gates configuration."""
-        return self.gates_config.get('gates', [])
+    def __init__(self):
+        self.app_config = None
+        self.boards = None
+        self.devices = None
+        self.gates = None
 
     def reload_configs(self):
-        """Reload both the main and gates configurations."""
-        self.load_config()
-        self.load_gates_config()
-        logger.debug("Both main and gates configurations reloaded.")
+        try:
+            with open('src/config/app_config.json', 'r') as f:
+                self.app_config = json.load(f)
+            with open('src/config/boards.json', 'r') as f:
+                self.boards = json.load(f)
+            with open('src/config/devices.json', 'r') as f:
+                self.devices = json.load(f)
+            with open('src/config/gates.json', 'r') as f:
+                self.gates = json.load(f)
+            logger.info("✅ All configurations loaded successfully")
+        except Exception as e:
+            logger.error(f"💢 Error loading configurations: {str(e)}")
+            raise
+
+    def get_app_config(self):
+        return self.app_config
+
+    def load_config(self, file_path):
+        try:
+            with open(file_path, 'r') as f:
+                return json.load(f)
+        except FileNotFoundError:
+            logger.error(f"💢 Configuration file not found: {file_path}")
+        except json.JSONDecodeError as e:
+            logger.error(f"💢 JSON decode error in configuration file {file_path}: {e}")
+        except Exception as e:
+            logger.error(f"💢 Failed to load configuration file {file_path}: {e}")
+        return {}
+
+    def get_boards(self):
+        return self.boards
+
+    def get_devices(self):
+        return self.devices
+
+    def get_gates(self):
+        return self.gates
 
 # Example usage:
 if __name__ == "__main__":
@@ -75,7 +54,7 @@ if __name__ == "__main__":
     try:
         config_loader.reload_configs()
         boards = config_loader.get_boards()
-        tools = config_loader.get_tools()
+        tools = config_loader.get_devices()
         gates = config_loader.get_gates()
 
         logger.debug(f"Boards: {boards}")

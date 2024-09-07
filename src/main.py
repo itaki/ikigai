@@ -1,56 +1,95 @@
-from utils.config_loader import ConfigLoader
-from boards.board_manager import BoardManager
-from gui.main_window import MainWindow  # Import the main window for the GUI
 from loguru import logger
 import busio
 import board
-import sys
-from PyQt6.QtWidgets import QApplication
-
-# Configuration flags
-USE_GUI = False
-USE_AD_CONVERTERS = False
-USE_BUTTONS = True
-USE_SERVOS = True 
-USE_RGB_LEDS = True
-
-use_boards = {
-    "USE_AD_CONVERTERS": USE_AD_CONVERTERS,
-    "USE_BUTTONS": USE_BUTTONS,
-    "USE_SERVOS": USE_SERVOS,
-    "USE_RGB_LEDS": USE_RGB_LEDS
-}   
+import time
+from utils.config_loader import ConfigLoader
+from managers.board_manager import BoardManager
+from managers.device_manager import DeviceManager
+from managers.style_manager import StyleManager
 
 # Configure Loguru logger
 logger.add("logs/shop_manager.log", rotation="1 MB")
 
+# Load configurations
+config_loader = ConfigLoader()
+config_loader.reload_configs()
+app_config = config_loader.get_app_config()
+
+# Extract configuration values
+USE_GUI = app_config.get('USE_GUI', False)
+USE_BOARDS = app_config.get('USE_BOARDS', {})
+USE_DEVICES = app_config.get('USE_DEVICES', {})
+
+def initialize_gui():
+    if USE_GUI:
+        from gui.main_window import MainWindow
+        from PyQt6.QtWidgets import QApplication
+        app = QApplication([])
+        main_window = MainWindow()
+        logger.info("🖥️ GUI initialized")
+        return app, main_window
+    return None, None
+
+def initialize_managers(i2c):
+    boards_config = config_loader.get_boards()
+    devices_config = config_loader.get_devices()
+    gates_config = config_loader.get_gates()
+
+    # Ensure boards_config is a dictionary
+    if isinstance(boards_config, list):
+        boards_config = {board['id']: board for board in boards_config}
+
+    board_manager = BoardManager(i2c)
+    boards = board_manager.initialize_all_boards(boards_config, app_config)
+
+    style_manager = StyleManager()
+    rgbled_styles = style_manager.get_styles()
+    logger.info("🎨 StyleManager initialized")
+
+    device_manager = DeviceManager(devices_config, gates_config, boards, rgbled_styles, app_config)
+    logger.info("🔧 DeviceManager initialized")
+    
+    return board_manager, device_manager
+
 def main():
+    device_manager = None
+    board_manager = None
     try:
         logger.info("🔧 Starting the shop management application...")
-
-        # Load configuration
-        config_loader = ConfigLoader()
-        config_loader.reload_configs()
-
+        
         # Initialize I2C interface
+        logger.info("🔌 Initializing I2C interface")
         i2c = busio.I2C(board.SCL, board.SDA)
+        logger.info("✅ I2C interface initialized")
 
-        # Initialize the board manager
-        board_manager = BoardManager(i2c)
-        boards_config = config_loader.get_boards()
-        board_manager.initialize_all_boards(boards_config, use_boards)
+        # Initialize GUI if enabled
+        app, main_window = initialize_gui()
 
-        if USE_GUI:
-            # Initialize the GUI
-            app = QApplication(sys.argv)
-            window = MainWindow(board_manager)  # Pass the BoardManager to the GUI
-            window.show()
+        # Initialize managers
+        board_manager, device_manager = initialize_managers(i2c)
 
-        # Start the GUI event loop
-        sys.exit(app.exec_())
+        # Main application loop
+        while True:
+            try:
+                device_manager.update()
+                if USE_GUI:
+                    app.processEvents()
+                time.sleep(0.1)  # Adjust as needed to control loop speed
 
+            except Exception as e:
+                logger.error(f"💢 An error occurred during device update: {str(e)}")
+                break  # Exit the loop on error
+
+    except KeyboardInterrupt:
+        logger.info("Program interrupted by user")
     except Exception as e:
         logger.error(f"💢 An error occurred in the shop management application: {str(e)}")
+    finally:
+        if device_manager:
+            device_manager.cleanup()
+        if board_manager:
+            board_manager.cleanup()
+        logger.info("All threads and resources cleaned up gracefully.")
 
 if __name__ == "__main__":
     main()

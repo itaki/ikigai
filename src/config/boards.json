@@ -1,0 +1,88 @@
+[
+    {
+        "label": "GPIO Expander - Master Control",
+        "type": "MCP23017",
+        "id": "master_control_gpio_expander",
+        "location": "Master Control",
+        "i2c_address": "0x20",
+        "purpose": "Button Management"
+    },
+    {
+        "label": "PWM Servo - Master Control",
+        "type": "PCA9685",
+        "id": "master_control_pwm_servo",
+        "location": "Master Control",
+        "i2c_address": "0x41",
+        "purpose": "Servo Control",
+        "frequency": 50
+    },
+    {
+        "label": "PWM LED - Master Control",
+        "type": "PCA9685",
+        "id": "master_control_pwm_led",
+        "location": "Master Control",
+        "i2c_address": "0x40",
+        "purpose": "LED Control",
+        "frequency": 1000
+    },
+    {
+        "label": "Voltage Detector - Master Control",
+        "type": "ADS1115",
+        "id": "master_control_ad_converter",
+        "location": "Master Control",
+        "i2c_address": "0x48",
+        "purpose": "Voltage Sensing"
+    },
+    {
+        "label": "GPIO Expander - Island",
+        "type": "MCP23017",
+        "id": "island_gpio_expander",
+        "location": "Center Island",
+        "i2c_address": "0x24",
+        "purpose": "Button Management"
+    },
+    {
+        "label": "PWM Servo - Island",
+        "type": "PCA9685",
+        "id": "island_pwm_servo",
+        "location": "Center Island",
+        "i2c_address": "0x50",
+        "purpose": "Servo Control",
+        "frequency": 50
+    },
+    {
+        "label": "PWM LED - Island",
+        "type": "PCA9685",
+        "id": "island_pwm_led",
+        "location": "Center Island",
+        "i2c_address": "0x4c",
+        "purpose": "LED Control",
+        "frequency": 1000
+    },
+    {
+        "label": "Voltage Detector - Island",
+        "type": "ADS1115",
+        "id": "island_ad_converter",
+        "location": "Center Island",
+        "i2c_address": "0x4a",
+        "purpose": "Voltage Sensing"
+    },
+    {
+        "label": "PWM Servo - Everest",
+        "type": "PCA9685",
+        "id": "everest_pwm_servo",
+        "location": "Above the table saw",
+        "i2c_address": "0x72",
+        "purpose": "Servo Control",
+        "frequency": 50
+    },
+    {
+        "label": "PWM LED - Everest",
+        "type": "PCA9685",
+        "id": "everest_pwm_led",
+        "location": "Above the table saw",
+        "i2c_address": "0x74",
+        "purpose": "LED Control",
+        "frequency": 1000
+    }
+]

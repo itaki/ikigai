@@ -1,0 +1,12 @@
+[
+  {
+      "name": "Tool1",
+      "volt": {
+        "type": "ADS1115",
+          "voltage_address": {
+              "board_address": "0x48",
+              "pin": 0
+          }
+      }
+  }
+]

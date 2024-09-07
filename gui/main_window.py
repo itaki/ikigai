@@ -4,6 +4,7 @@ from loguru import logger
 
 class MainWindow(QMainWindow):
     def __init__(self, board_manager):
+        pass
         super().__init__()
 
         self.board_manager = board_manager

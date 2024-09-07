@@ -1,0 +1,152 @@
+2024-09-07 19:15:23.316 | INFO     | utils.config_loader:reload_configs:22 - ✅ All configurations loaded successfully
+2024-09-07 19:15:23.318 | INFO     | __main__:main:58 - 🔧 Starting the shop management application...
+2024-09-07 19:15:23.319 | INFO     | __main__:main:61 - 🔌 Initializing I2C interface
+2024-09-07 19:15:23.324 | INFO     | __main__:main:63 - ✅ I2C interface initialized
+2024-09-07 19:15:23.326 | INFO     | managers.board_manager:__init__:11 - 🔧 BoardManager initialized with I2C interface
+2024-09-07 19:15:23.330 | INFO     | boards.mcp23017:__init__:15 - 🔧 Initializing MCP23017 at address 0x20 (GPIO Expander - Master Control)
+2024-09-07 19:15:23.332 | SUCCESS  | managers.board_manager:initialize_board:42 - ✅ Board 'GPIO Expander - Master Control' initialized successfully.
+2024-09-07 19:15:23.333 | INFO     | managers.board_manager:initialize_all_boards:57 - ✅ MCP23017 board master_control_gpio_expander initialized
+2024-09-07 19:15:23.349 | INFO     | boards.pca9685:__init__:15 - 🔮 Initialized PCA9685 at address 0x41 in Servo Control mode with frequency 50Hz as board ID master_control_pwm_servo
+2024-09-07 19:15:23.351 | SUCCESS  | managers.board_manager:initialize_board:42 - ✅ Board 'PWM Servo - Master Control' initialized successfully.
+2024-09-07 19:15:23.353 | INFO     | managers.board_manager:initialize_all_boards:57 - ✅ PCA9685 board master_control_pwm_servo initialized
+2024-09-07 19:15:23.365 | INFO     | boards.pca9685:__init__:19 - 🔮 Initialized PCA9685 at address 0x40 in LED Control mode with frequency 1000Hz as board ID master_control_pwm_led
+2024-09-07 19:15:23.366 | SUCCESS  | managers.board_manager:initialize_board:42 - ✅ Board 'PWM LED - Master Control' initialized successfully.
+2024-09-07 19:15:23.368 | INFO     | managers.board_manager:initialize_all_boards:57 - ✅ PCA9685 board master_control_pwm_led initialized
+2024-09-07 19:15:23.376 | INFO     | boards.ads1115:__init__:28 - 🔧 Initializing ADS1115 at address 0x48 and board ID master_control_ad_converter (Voltage Detector - Master Control, Master Control, Voltage Sensing)
+2024-09-07 19:15:23.380 | SUCCESS  | managers.board_manager:initialize_board:42 - ✅ Board 'Voltage Detector - Master Control' initialized successfully.
+2024-09-07 19:15:23.382 | INFO     | boards.ads1115:read_pins:38 - 🔄 Getting readings from ADS1115 Voltage Detector - Master Control at data rate 860 SPS
+2024-09-07 19:15:23.384 | INFO     | managers.board_manager:initialize_all_boards:57 - ✅ ADS1115 board master_control_ad_converter initialized
+2024-09-07 19:15:23.402 | INFO     | boards.mcp23017:__init__:15 - 🔧 Initializing MCP23017 at address 0x24 (GPIO Expander - Island)
+2024-09-07 19:15:23.403 | SUCCESS  | managers.board_manager:initialize_board:42 - ✅ Board 'GPIO Expander - Island' initialized successfully.
+2024-09-07 19:15:23.408 | INFO     | managers.board_manager:initialize_all_boards:57 - ✅ MCP23017 board island_gpio_expander initialized
+2024-09-07 19:15:23.440 | INFO     | boards.pca9685:__init__:15 - 🔮 Initialized PCA9685 at address 0x50 in Servo Control mode with frequency 50Hz as board ID island_pwm_servo
+2024-09-07 19:15:23.442 | SUCCESS  | managers.board_manager:initialize_board:42 - ✅ Board 'PWM Servo - Island' initialized successfully.
+2024-09-07 19:15:23.445 | INFO     | managers.board_manager:initialize_all_boards:57 - ✅ PCA9685 board island_pwm_servo initialized
+2024-09-07 19:15:23.485 | INFO     | boards.pca9685:__init__:19 - 🔮 Initialized PCA9685 at address 0x4c in LED Control mode with frequency 1000Hz as board ID island_pwm_led
+2024-09-07 19:15:23.489 | SUCCESS  | managers.board_manager:initialize_board:42 - ✅ Board 'PWM LED - Island' initialized successfully.
+2024-09-07 19:15:23.497 | INFO     | managers.board_manager:initialize_all_boards:57 - ✅ PCA9685 board island_pwm_led initialized
+2024-09-07 19:15:23.511 | INFO     | boards.ads1115:__init__:28 - 🔧 Initializing ADS1115 at address 0x4a and board ID island_ad_converter (Voltage Detector - Island, Center Island, Voltage Sensing)
+2024-09-07 19:15:23.519 | SUCCESS  | managers.board_manager:initialize_board:42 - ✅ Board 'Voltage Detector - Island' initialized successfully.
+2024-09-07 19:15:23.527 | INFO     | managers.board_manager:initialize_all_boards:57 - ✅ ADS1115 board island_ad_converter initialized
+2024-09-07 19:15:23.559 | INFO     | boards.pca9685:__init__:15 - 🔮 Initialized PCA9685 at address 0x72 in Servo Control mode with frequency 50Hz as board ID everest_pwm_servo
+2024-09-07 19:15:23.562 | SUCCESS  | managers.board_manager:initialize_board:42 - ✅ Board 'PWM Servo - Everest' initialized successfully.
+2024-09-07 19:15:23.565 | INFO     | boards.ads1115:read_pins:38 - 🔄 Getting readings from ADS1115 Voltage Detector - Island at data rate 860 SPS
+2024-09-07 19:15:23.569 | INFO     | managers.board_manager:initialize_all_boards:57 - ✅ PCA9685 board everest_pwm_servo initialized
+2024-09-07 19:15:23.640 | INFO     | boards.pca9685:__init__:19 - 🔮 Initialized PCA9685 at address 0x74 in LED Control mode with frequency 1000Hz as board ID everest_pwm_led
+2024-09-07 19:15:23.641 | SUCCESS  | managers.board_manager:initialize_board:42 - ✅ Board 'PWM LED - Everest' initialized successfully.
+2024-09-07 19:15:23.643 | INFO     | managers.board_manager:initialize_all_boards:57 - ✅ PCA9685 board everest_pwm_led initialized
+2024-09-07 19:15:23.646 | INFO     | managers.board_manager:initialize_all_boards:59 - 🔧 All boards initialized: ['master_control_gpio_expander', 'master_control_pwm_servo', 'master_control_pwm_led', 'master_control_ad_converter', 'island_gpio_expander', 'island_pwm_servo', 'island_pwm_led', 'island_ad_converter', 'everest_pwm_servo', 'everest_pwm_led']
+2024-09-07 19:15:23.649 | DEBUG    | managers.style_manager:__init__:10 - Using styles path: /home/michaelmcreynolds/ikigai/src/config/styles.json
+2024-09-07 19:15:23.652 | INFO     | __main__:initialize_managers:47 - 🎨 StyleManager initialized
+2024-09-07 19:15:23.655 | INFO     | managers.device_manager:__init__:19 - 🔧 Initializing DeviceManager
+2024-09-07 19:15:23.657 | INFO     | managers.device_manager:initialize_devices:32 - 🔧 Available boards: ['master_control_gpio_expander', 'master_control_pwm_servo', 'master_control_pwm_led', 'master_control_ad_converter', 'island_gpio_expander', 'island_pwm_servo', 'island_pwm_led', 'island_ad_converter', 'everest_pwm_servo', 'everest_pwm_led']
+2024-09-07 19:15:23.659 | INFO     | managers.gate_manager:__init__:12 - 🔧 Initializing GateManager
+2024-09-07 19:15:23.661 | INFO     | managers.gate_manager:initialize_gates:25 - ✅ Gate Everest_Access initialized on board master_control_pwm_servo
+2024-09-07 19:15:23.662 | INFO     | managers.gate_manager:initialize_gates:25 - ✅ Gate HOSE initialized on board master_control_pwm_servo
+2024-09-07 19:15:23.665 | INFO     | managers.gate_manager:initialize_gates:25 - ✅ Gate MiterSaw initialized on board master_control_pwm_servo
+2024-09-07 19:15:23.667 | INFO     | managers.gate_manager:initialize_gates:25 - ✅ Gate MiterSaw_Left initialized on board master_control_pwm_servo
+2024-09-07 19:15:23.670 | INFO     | managers.gate_manager:initialize_gates:25 - ✅ Gate MiterSaw_Right initialized on board master_control_pwm_servo
+2024-09-07 19:15:23.671 | INFO     | managers.gate_manager:initialize_gates:25 - ✅ Gate FloorSweep initialized on board master_control_pwm_servo
+2024-09-07 19:15:23.676 | INFO     | managers.gate_manager:initialize_gates:25 - ✅ Gate Corner_Branch initialized on board master_control_pwm_servo
+2024-09-07 19:15:23.680 | INFO     | managers.gate_manager:initialize_gates:25 - ✅ Gate BandSaw initialized on board master_control_pwm_servo
+2024-09-07 19:15:23.689 | INFO     | managers.gate_manager:initialize_gates:25 - ✅ Gate Drill_Press initialized on board master_control_pwm_servo
+2024-09-07 19:15:23.695 | INFO     | managers.gate_manager:initialize_gates:25 - ✅ Gate Black_Diamond initialized on board everest_pwm_servo
+2024-09-07 19:15:23.700 | INFO     | managers.gate_manager:initialize_gates:25 - ✅ Gate Island_Branch_Overhead_Arm initialized on board everest_pwm_servo
+2024-09-07 19:15:23.704 | INFO     | managers.gate_manager:initialize_gates:25 - ✅ Gate Table_Saw_Hood initialized on board everest_pwm_servo
+2024-09-07 19:15:23.706 | INFO     | managers.gate_manager:initialize_gates:25 - ✅ Gate Table_Saw_Main initialized on board island_pwm_servo
+2024-09-07 19:15:23.708 | INFO     | managers.gate_manager:initialize_gates:25 - ✅ Gate Router_Table initialized on board island_pwm_servo
+2024-09-07 19:15:23.710 | INFO     | managers.gate_manager:initialize_gates:25 - ✅ Gate Sanding_Table initialized on board island_pwm_servo
+2024-09-07 19:15:23.712 | INFO     | managers.gate_manager:initialize_gates:25 - ✅ Gate Planer initialized on board island_pwm_servo
+2024-09-07 19:15:23.715 | INFO     | managers.device_manager:initialize_devices:36 - ⛩️ GateManager initialized
+2024-09-07 19:15:23.733 | INFO     | managers.button_manager:initialize_buttons:22 - ✅ Button Hose Button initialized on board master_control_gpio_expander at pin 0
+2024-09-07 19:15:23.737 | INFO     | managers.button_manager:start_polling:31 - 🔍 Button polling started
+2024-09-07 19:15:23.740 | INFO     | managers.device_manager:initialize_devices:41 - 🔘 ButtonManager initialized and polling started
+2024-09-07 19:15:23.743 | DEBUG    | devices.rgbled:__init__:14 - 💡 RGB LED 'Hose LED' initialized on board <boards.pca9685.PCA9685 object at 0x7fa0722010>, pins [0, 1, 2]
+2024-09-07 19:15:23.747 | INFO     | managers.rgbled_manager:initialize_rgbleds:19 - ✅ RGB LED Hose LED initialized on board master_control_pwm_led
+2024-09-07 19:15:23.750 | INFO     | managers.rgbled_manager:__init__:10 - Initialized RGB LEDs: ['hose_button_LED']
+2024-09-07 19:15:23.753 | INFO     | managers.device_manager:initialize_devices:45 - 💡 RGBLEDManager initialized
+2024-09-07 19:15:23.756 | INFO     | devices.dust_collector:__init__:20 - 🌀 Dust Collector 'Main Collector Relay' initialized on Raspberry Pi GPIO pin 21
+2024-09-07 19:15:23.758 | INFO     | managers.dust_collector_manager:initialize_collectors:24 - ✅ Dust Collector main_collector initialized on Raspberry Pi GPIO
+2024-09-07 19:15:23.761 | INFO     | managers.dust_collector_manager:initialize_collectors:27 - Initialized collectors: ['main_collector']
+2024-09-07 19:15:23.766 | INFO     | managers.dust_collector_manager:__init__:15 - DustCollectorManager initialized with collectors: ['main_collector']
+2024-09-07 19:15:23.776 | INFO     | managers.device_manager:initialize_devices:49 - 💨 DustCollectorManager initialized
+2024-09-07 19:15:23.780 | INFO     | managers.voltage_sensor_manager:__init__:24 - Initialized 5 voltage sensors
+2024-09-07 19:15:23.787 | INFO     | managers.device_manager:initialize_devices:53 - ⚡ VoltageSensorManager initialized
+2024-09-07 19:15:23.790 | INFO     | __main__:initialize_managers:50 - 🔧 DeviceManager initialized
+2024-09-07 19:15:23.799 | DEBUG    | managers.voltage_sensor_manager:update:33 - Waiting for board initialization for sensor miter_saw_voltage_sensor
+2024-09-07 19:15:23.804 | DEBUG    | managers.voltage_sensor_manager:update:33 - Waiting for board initialization for sensor band_saw_voltage_sensor
+2024-09-07 19:15:23.808 | DEBUG    | managers.voltage_sensor_manager:update:33 - Waiting for board initialization for sensor drill_press_voltage_sensor
+2024-09-07 19:15:23.814 | DEBUG    | managers.voltage_sensor_manager:update:33 - Waiting for board initialization for sensor table_saw_voltage_sensor
+2024-09-07 19:15:23.823 | DEBUG    | managers.voltage_sensor_manager:update:33 - Waiting for board initialization for sensor router_table_voltage_sensor
+2024-09-07 19:15:23.832 | INFO     | managers.device_manager:update:79 - 🔘 Button state changed: hose_button: off
+2024-09-07 19:15:23.836 | INFO     | managers.gate_manager:set_gates:35 - ⛩️ No gates to open. Maintaining current gate states.
+2024-09-07 19:15:23.852 | DEBUG    | devices.rgbled:turn_off:28 - 💡 RGB LED 'Hose LED' turned off with color dark_blue
+2024-09-07 19:15:23.855 | INFO     | managers.device_manager:update_rgbleds:143 - 💡 LED states changed: hose_button_LED: off
+2024-09-07 19:15:23.960 | DEBUG    | managers.voltage_sensor_manager:update:33 - Waiting for board initialization for sensor miter_saw_voltage_sensor
+2024-09-07 19:15:23.964 | DEBUG    | managers.voltage_sensor_manager:update:33 - Waiting for board initialization for sensor band_saw_voltage_sensor
+2024-09-07 19:15:23.965 | DEBUG    | managers.voltage_sensor_manager:update:33 - Waiting for board initialization for sensor drill_press_voltage_sensor
+2024-09-07 19:15:23.972 | DEBUG    | managers.voltage_sensor_manager:update:33 - Waiting for board initialization for sensor table_saw_voltage_sensor
+2024-09-07 19:15:23.974 | DEBUG    | managers.voltage_sensor_manager:update:33 - Waiting for board initialization for sensor router_table_voltage_sensor
+2024-09-07 19:15:24.079 | DEBUG    | managers.voltage_sensor_manager:update:33 - Waiting for board initialization for sensor miter_saw_voltage_sensor
+2024-09-07 19:15:24.087 | DEBUG    | managers.voltage_sensor_manager:update:33 - Waiting for board initialization for sensor band_saw_voltage_sensor
+2024-09-07 19:15:24.093 | DEBUG    | managers.voltage_sensor_manager:update:33 - Waiting for board initialization for sensor drill_press_voltage_sensor
+2024-09-07 19:15:24.098 | DEBUG    | managers.voltage_sensor_manager:update:33 - Waiting for board initialization for sensor table_saw_voltage_sensor
+2024-09-07 19:15:24.114 | DEBUG    | managers.voltage_sensor_manager:update:33 - Waiting for board initialization for sensor router_table_voltage_sensor
+2024-09-07 19:15:24.223 | DEBUG    | managers.voltage_sensor_manager:update:33 - Waiting for board initialization for sensor miter_saw_voltage_sensor
+2024-09-07 19:15:24.227 | DEBUG    | managers.voltage_sensor_manager:update:33 - Waiting for board initialization for sensor band_saw_voltage_sensor
+2024-09-07 19:15:24.232 | DEBUG    | managers.voltage_sensor_manager:update:33 - Waiting for board initialization for sensor drill_press_voltage_sensor
+2024-09-07 19:15:24.246 | DEBUG    | managers.voltage_sensor_manager:update:33 - Waiting for board initialization for sensor table_saw_voltage_sensor
+2024-09-07 19:15:24.259 | DEBUG    | managers.voltage_sensor_manager:update:33 - Waiting for board initialization for sensor router_table_voltage_sensor
+2024-09-07 19:15:24.295 | INFO     | boards.ads1115:read_pins:54 - ✅ ADS1115 Voltage Detector - Master Control initialized with 100 readings
+2024-09-07 19:15:24.300 | INFO     | boards.ads1115:poll_pins:62 - ✅ Initial fast readings completed for ADS1115 Voltage Detector - Master Control
+2024-09-07 19:15:24.312 | INFO     | boards.ads1115:read_pins:38 - 🔄 Getting readings from ADS1115 Voltage Detector - Master Control at data rate 128 SPS
+2024-09-07 19:15:24.363 | DEBUG    | managers.voltage_sensor_manager:update:33 - Waiting for board initialization for sensor table_saw_voltage_sensor
+2024-09-07 19:15:24.365 | DEBUG    | managers.voltage_sensor_manager:update:33 - Waiting for board initialization for sensor router_table_voltage_sensor
+2024-09-07 19:15:24.469 | INFO     | devices.voltage_sensor:calibrate:66 - Voltage Sensor miter_saw_voltage_sensor calibrated. Baseline Std Dev: 0.001250V, Threshold: 0.001875V
+2024-09-07 19:15:24.471 | INFO     | devices.voltage_sensor:calibrate:66 - Voltage Sensor drill_press_voltage_sensor calibrated. Baseline Std Dev: 0.001210V, Threshold: 0.001815V
+2024-09-07 19:15:24.473 | DEBUG    | managers.voltage_sensor_manager:update:33 - Waiting for board initialization for sensor table_saw_voltage_sensor
+2024-09-07 19:15:24.474 | DEBUG    | managers.voltage_sensor_manager:update:33 - Waiting for board initialization for sensor router_table_voltage_sensor
+2024-09-07 19:15:24.477 | INFO     | managers.device_manager:update:71 - ⚡ Voltage sensor state changed: miter_saw_voltage_sensor: off, drill_press_voltage_sensor: off
+2024-09-07 19:15:24.479 | INFO     | managers.gate_manager:set_gates:35 - ⛩️ No gates to open. Maintaining current gate states.
+2024-09-07 19:15:24.582 | DEBUG    | managers.voltage_sensor_manager:update:33 - Waiting for board initialization for sensor table_saw_voltage_sensor
+2024-09-07 19:15:24.587 | DEBUG    | managers.voltage_sensor_manager:update:33 - Waiting for board initialization for sensor router_table_voltage_sensor
+2024-09-07 19:15:24.651 | INFO     | boards.ads1115:read_pins:54 - ✅ ADS1115 Voltage Detector - Island initialized with 100 readings
+2024-09-07 19:15:24.652 | INFO     | boards.ads1115:poll_pins:62 - ✅ Initial fast readings completed for ADS1115 Voltage Detector - Island
+2024-09-07 19:15:24.697 | INFO     | devices.voltage_sensor:calibrate:66 - Voltage Sensor band_saw_voltage_sensor calibrated. Baseline Std Dev: 0.044524V, Threshold: 0.075691V
+2024-09-07 19:15:24.706 | INFO     | boards.ads1115:read_pins:38 - 🔄 Getting readings from ADS1115 Voltage Detector - Island at data rate 128 SPS
+2024-09-07 19:15:24.714 | INFO     | managers.device_manager:update:71 - ⚡ Voltage sensor state changed: band_saw_voltage_sensor: off
+2024-09-07 19:15:24.722 | INFO     | managers.gate_manager:set_gates:35 - ⛩️ No gates to open. Maintaining current gate states.
+2024-09-07 19:15:24.831 | INFO     | devices.voltage_sensor:calibrate:66 - Voltage Sensor table_saw_voltage_sensor calibrated. Baseline Std Dev: 0.001886V, Threshold: 0.002829V
+2024-09-07 19:15:24.838 | INFO     | managers.device_manager:update:71 - ⚡ Voltage sensor state changed: table_saw_voltage_sensor: off
+2024-09-07 19:15:24.843 | INFO     | managers.gate_manager:set_gates:35 - ⛩️ No gates to open. Maintaining current gate states.
+2024-09-07 19:15:25.048 | INFO     | devices.voltage_sensor:calibrate:66 - Voltage Sensor router_table_voltage_sensor calibrated. Baseline Std Dev: 0.009120V, Threshold: 0.015505V
+2024-09-07 19:15:25.062 | INFO     | managers.device_manager:update:71 - ⚡ Voltage sensor state changed: router_table_voltage_sensor: off
+2024-09-07 19:15:25.069 | INFO     | managers.gate_manager:set_gates:35 - ⛩️ No gates to open. Maintaining current gate states.
+2024-09-07 19:15:32.809 | INFO     | devices.voltage_sensor:check_state:78 - Voltage Sensor band_saw_voltage_sensor state changed to: ON
+2024-09-07 19:15:32.812 | INFO     | managers.device_manager:update:71 - ⚡ Voltage sensor state changed: band_saw_voltage_sensor: on
+2024-09-07 19:15:32.817 | INFO     | managers.dust_collector_manager:update_collector_state:46 - Dust collector main_collector added users: {'band_saw_voltage_sensor'}
+2024-09-07 19:15:32.838 | INFO     | devices.gate:update_status:62 -      🔮 Gate Corner_Branch open.
+2024-09-07 19:15:33.059 | INFO     | devices.gate:update_status:62 -      🔮 Gate BandSaw open.
+2024-09-07 19:15:33.232 | INFO     | managers.gate_manager:set_gates:54 - ⛩️ Gates updated: Corner_Branch (open), BandSaw (open)
+2024-09-07 19:15:33.667 | INFO     | devices.voltage_sensor:check_state:78 - Voltage Sensor band_saw_voltage_sensor state changed to: OFF
+2024-09-07 19:15:33.672 | INFO     | managers.device_manager:update:71 - ⚡ Voltage sensor state changed: band_saw_voltage_sensor: off
+2024-09-07 19:15:33.675 | INFO     | managers.dust_collector_manager:update_collector_state:48 - Dust collector main_collector removed users: {'band_saw_voltage_sensor'}
+2024-09-07 19:15:33.678 | INFO     | managers.gate_manager:set_gates:35 - ⛩️ No gates to open. Maintaining current gate states.
+2024-09-07 19:16:55.954 | INFO     | devices.voltage_sensor:check_state:78 - Voltage Sensor miter_saw_voltage_sensor state changed to: ON
+2024-09-07 19:16:55.957 | INFO     | managers.device_manager:update:71 - ⚡ Voltage sensor state changed: miter_saw_voltage_sensor: on
+2024-09-07 19:16:55.958 | INFO     | managers.dust_collector_manager:update_collector_state:46 - Dust collector main_collector added users: {'miter_saw_voltage_sensor'}
+2024-09-07 19:16:56.136 | INFO     | devices.gate:update_status:62 -      🔮 Gate MiterSaw open.
+2024-09-07 19:16:56.139 | DEBUG    | devices.gate:close:51 -       🚥 ⛩️  Closing Corner_Branch
+2024-09-07 19:16:56.328 | INFO     | devices.gate:update_status:62 -      🔮 Gate Corner_Branch closed.
+2024-09-07 19:16:56.332 | DEBUG    | devices.gate:close:51 -       🚥 ⛩️  Closing BandSaw
+2024-09-07 19:16:56.716 | INFO     | devices.gate:update_status:62 -      🔮 Gate BandSaw closed.
+2024-09-07 19:16:56.781 | DEBUG    | devices.dust_collector:turn_on:27 - 🌀 Dust Collector 'Main Collector Relay' turned on
+2024-09-07 19:16:56.844 | INFO     | managers.gate_manager:set_gates:54 - ⛩️ Gates updated: MiterSaw (open), Corner_Branch (closed), BandSaw (closed)
+2024-09-07 19:16:57.466 | ERROR    | boards.ads1115:read_pins:50 - Error reading pin 1 on ADS1115 Voltage Detector - Master Control: [Errno 5] Input/output error
+2024-09-07 19:17:00.013 | INFO     | devices.voltage_sensor:check_state:78 - Voltage Sensor miter_saw_voltage_sensor state changed to: OFF
+2024-09-07 19:17:00.015 | INFO     | managers.device_manager:update:71 - ⚡ Voltage sensor state changed: miter_saw_voltage_sensor: off
+2024-09-07 19:17:00.016 | INFO     | managers.dust_collector_manager:update_collector_state:48 - Dust collector main_collector removed users: {'miter_saw_voltage_sensor'}
+2024-09-07 19:17:00.017 | INFO     | managers.gate_manager:set_gates:35 - ⛩️ No gates to open. Maintaining current gate states.
+2024-09-07 19:17:06.792 | INFO     | managers.dust_collector_manager:_manage_collectors:62 - 💨 Dust Collector main_collector turned on after cool down time
+2024-09-07 19:17:07.793 | DEBUG    | devices.dust_collector:turn_off:35 - 🌀 Dust Collector 'Main Collector Relay' turned off
+2024-09-07 19:17:07.795 | INFO     | managers.dust_collector_manager:_manage_collectors:57 - 💨 Dust Collector main_collector turned off after minimum up time

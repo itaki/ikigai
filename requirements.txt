@@ -18,6 +18,15 @@ Adafruit-CircuitPython-ADS1x15   # For ADS1115 ADC
 # Additional dependencies (if needed)
 RPi.GPIO                         # For direct GPIO pin control on Raspberry Pi
 smbus2                           # SMBus support, often used with I2C on Raspberry Pi
+requests
+
+
+# Math
+numpy
+scipy
+matplotlib
+pandas
+matplotlib                       
 
 # Testing and utilities
 pytest                           # For testing
