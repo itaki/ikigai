@@ -17,7 +17,7 @@ class ADS1115:
         self.fast_data_rate = app_config['ADS1115_SETTINGS']['FAST_DATA_RATE']
         self.normal_data_rate = app_config['ADS1115_SETTINGS']['NORMAL_DATA_RATE']
         self.initial_readings = app_config['ADS1115_SETTINGS']['INITIAL_READINGS']
-        self.max_readings = app_config['ADS1115_SETTINGS']['MAX_READINGS']
+        self.max_readings = app_config['VOLTAGE_SENSOR_SETTINGS']['MAX_READINGS']
         self.readings = {pin: [] for pin in range(4)}
         self.is_initialized = False
         self.lock = threading.Lock()
@@ -35,10 +35,7 @@ class ADS1115:
 
     def read_pins(self, data_rate):
         self.ads.data_rate = data_rate
-        if data_rate == self.fast_data_rate:
-            logger.info(f"🔄 Getting {self.initial_readings} initial readings from ADS1115 {self.label} at {data_rate} SPS")
-        else:
-            logger.info(f"🔄 Maintaining {self.max_readings} readings from ADS1115 {self.label} at {data_rate} SPS")
+        logger.info(f"🔄 🔘dings from ADS1115 {self.label} at data rate {data_rate} SPS")
         while not self._stop_thread.is_set():
             for pin in range(4):
                 try:

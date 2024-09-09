@@ -12,19 +12,17 @@ class DustCollectorManager:
         self.thread = threading.Thread(target=self._manage_collectors)
         self.initialize_collectors()
         self.thread.start()
-        logger.info(f"DustCollectorManager initialized with collectors: {list(self.collectors.keys())}")
 
     def initialize_collectors(self):
         for device in self.device_config:
             if device['type'] == 'collector':
-                collector_id = device['id']
+                collector_label = device['label']
                 if device['connection']['board'] == 'pi_gpio':
-                    self.collectors[collector_id] = DustCollector(device)
-                    self.collector_users[collector_id] = set()
-                    logger.info(f"✅ Dust Collector {collector_id} initialized on Raspberry Pi GPIO")
+                    self.collectors[collector_label] = DustCollector(device)
+                    self.collector_users[collector_label] = set()
+                    logger.debug(f"✅ 💨 {collector_label} initialized on Raspberry Pi GPIO")
                 else:
-                    logger.error(f"💢 Unsupported board type for collector {device['label']}")
-        logger.info(f"Initialized collectors: {list(self.collectors.keys())}")
+                    logger.error(f"❌ Unsupported board type for {collector_label}")
 
     def update_collector_state(self, voltage_states, button_states):
         for collector_id, collector in self.collectors.items():
@@ -54,12 +52,12 @@ class DustCollectorManager:
                     if time.time() - collector.last_on_time >= collector.minimum_up_time:
                         if not self.collector_users[collector_id]:
                             collector.turn_off()
-                            logger.info(f"💨 Dust Collector {collector_id} turned off after minimum up time")
+                            logger.info(f"💨 🛑 Dust Collector {collector_id} 🛑")
                 elif collector.relay_status == "off":
                     if time.time() - collector.last_off_time >= collector.cool_down_time:
                         if self.collector_users[collector_id]:
                             collector.turn_on()
-                            logger.info(f"💨 Dust Collector {collector_id} turned on after cool down time")
+                            logger.info(f"💨 🌀 Dust Collector {collector_id} 🌀")
             time.sleep(1)
 
     def cleanup(self):
@@ -73,6 +71,5 @@ class DustCollectorManager:
             collector.cleanup()
         logger.info("✅ DustCollectorManager cleanup completed")
 
-    # Add this new method
     def get_all_collector_states(self):
         return {collector_id: collector.relay_status for collector_id, collector in self.collectors.items()}

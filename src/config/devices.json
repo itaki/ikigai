@@ -21,12 +21,82 @@
         "physical_location": "On the hose button",
         "preferences": {
             "listen_to": ["hose_button"],
-            "on_colors": [0, 255, 0],
-            "off_colors": [255, 0, 0]
+            "on_colors": {},
+            "off_colors": {}
         },
         "connection": {
             "board": "master_control_pwm_led",
             "pins": [0, 1, 2]
+        }
+    },
+    {
+        "label": "Overhead Hose Button",
+        "type": "button",
+        "id": "overhead_hose_button",
+        "physical_location": "By the pi",
+        "preferences": {
+            "use_collector": ["main_collector"],
+            "gate_prefs": ["Everest_Access", "Island_Branch_Overhead_Arm"],
+            "spin_down_time": 0
+        },
+        "connection": {
+            "board": "master_control_gpio_expander",
+            "pin": 1
+        }
+    },
+    {
+        "label": "Overhead Hose LED",
+        "type": "RGBLED",
+        "id": "overhead_hose_button_LED",
+        "physical_location": "On the hose button",
+        "preferences": {
+            "listen_to": ["overhead_hose_button"],
+            "on_colors": {},
+            "off_colors": {}
+        },
+        "connection": {
+            "board": "master_control_pwm_led",
+            "pins": [3, 4, 5]
+        }
+    },
+    {
+        "label": "Router Table Button",
+        "type": "button",
+        "id": "router_table_button",
+        "physical_location": "By the pi, old right miter saw button",
+        "preferences": {
+            "use_collector": ["main_collector"],
+            "gate_prefs": ["Router_Table", "Black_Diamond", "Everest_Access"],
+            "spin_down_time": 0
+        },
+        "connection": {
+            "board": "master_control_gpio_expander",
+            "pin": 2
+        }
+    },
+    {
+        "label": "Router Table LED",
+        "type": "RGBLED",
+        "id": "router_table_button",
+        "physical_location": "On the right miter saw button",
+        "preferences": {
+            "listen_to": ["right_miter_saw_button"],
+            "on_colors": {
+                "name": "bright_purple",
+                "red": "0x0000",
+                "green": "0xFFFF",
+                "blue": "0xFFFF"
+            },
+            "off_colors": {
+                "name": "dark_blue",
+                "red": "0x2FFF",
+                "green": "0xFFFF",
+                "blue": "0x5FFF"
+            }
+        },
+        "connection": {
+            "board": "master_control_pwm_led",
+            "pins": [6, 7, 8]
         }
     },
     {
@@ -35,10 +105,10 @@
         "id": "miter_saw_voltage_sensor",
         "physical_location": "By the Miter Saw",
         "preferences": {
-            "threshold_standard_deviation_multiplier": 1.5,
+            "threshold_standard_deviation_multiplier": 3,
             "window_size": 40,
             "use_collector": ["main_collector"],
-            "gate_prefs": ["MiterSaw"],
+            "gate_prefs": ["MiterSaw", "MiterSaw_Right", "MiterSaw_Left"],
             "spin_down_time": 10
         },
         "connection": {
@@ -52,7 +122,7 @@
         "id": "band_saw_voltage_sensor",
         "physical_location": "By the Band Saw",
         "preferences": {
-            "threshold_standard_deviation_multiplier": 1.7,
+            "threshold_standard_deviation_multiplier": 1.8                                                                                                       ,
             "window_size": 100,
             "use_collector": ["main_collector"],
             "gate_prefs": ["BandSaw", "Corner_Branch"],
@@ -64,29 +134,12 @@
         }
     },
     {
-        "label": "Drill Press Voltage Sensor",
-        "type": "voltage_sensor",
-        "id": "drill_press_voltage_sensor",
-        "physical_location": "By the Drill Press",
-        "preferences": {
-            "threshold_standard_deviation_multiplier": 1.5,
-            "window_size": 40,
-            "use_collector": ["main_collector"],
-            "gate_prefs": ["Corner_Branch", "Drill_Press"],
-            "spin_down_time": 10
-        },
-        "connection": {
-            "board": "master_control_ad_converter",
-            "pin": 1
-        }
-    },
-    {
         "label": "Table Saw Voltage Sensor",
         "type": "voltage_sensor",
         "id": "table_saw_voltage_sensor",
         "physical_location": "By the Table Saw",
         "preferences": {
-            "threshold_standard_deviation_multiplier": 1.5,
+            "threshold_standard_deviation_multiplier": 3,
             "window_size": 40,
             "use_collector": ["main_collector"],
             "gate_prefs": ["Table_Saw_Main", "Black_Diamond", "Everest_Access"],
@@ -95,23 +148,6 @@
         "connection": {
             "board": "island_ad_converter",
             "pin": 0
-        }
-    },
-    {
-        "label": "Router Table Voltage Sensor",
-        "type": "voltage_sensor",
-        "id": "router_table_voltage_sensor",
-        "physical_location": "By the Router Table",
-        "preferences": {
-            "threshold_standard_deviation_multiplier": 1.7,
-            "window_size": 100,
-            "use_collector": ["main_collector"],
-            "gate_prefs": ["Router", "Black_Diamond", "Everest_Access"],
-            "spin_down_time": 10
-        },
-        "connection": {
-            "board": "island_ad_converter",
-            "pin": 1
         }
     },
     {

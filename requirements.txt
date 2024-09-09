@@ -4,7 +4,7 @@ loguru
 
 # GUI
 PyQt6
-PyQt6-tools
+
 # Adafruit CircuitPython libraries
 Adafruit-Blinka                  # This is the CircuitPython compatibility layer
 Adafruit-PlatformDetect          # Used by Blinka to detect the platform you're running on
@@ -14,7 +14,7 @@ Adafruit-PureIO                  # Pure Python (and pure I2C) GPIO libraries
 Adafruit-CircuitPython-MCP230xx  # For MCP23017 GPIO Expander
 Adafruit-CircuitPython-PCA9685   # For PCA9685 PWM/Servo/LED controller
 Adafruit-CircuitPython-ADS1x15   # For ADS1115 ADC
-
+adafruit-circuitpython-servokit  # For ServoKit
 # Additional dependencies (if needed)
 RPi.GPIO                         # For direct GPIO pin control on Raspberry Pi
 smbus2                           # SMBus support, often used with I2C on Raspberry Pi
@@ -26,8 +26,10 @@ numpy
 scipy
 matplotlib
 pandas
-matplotlib                       
+matplotlib  
+pyarrow   
+psutil                 
 
 # Testing and utilities
 pytest                           # For testing
-
+keyboard

@@ -39,11 +39,10 @@ class BoardManager:
                 logger.error(f"❌ Unknown or disabled board type '{board_type}' for board '{label}'")
                 return None
 
-            logger.success(f"✅ Board '{label}' initialized successfully.")
             return board
 
         except Exception as e:
-            logger.error(f"💢 Failed to initialize board '{label}': {str(e)}")
+            logger.error(f"💥 Failed to initialize board '{label}': {str(e)}")
             return None
 
     def initialize_all_boards(self, boards_config, app_config):
@@ -54,9 +53,7 @@ class BoardManager:
                 board = self.initialize_board(board_config, app_config)
                 if board:
                     self.boards[board_id] = board
-                    logger.info(f"✅ {board_config['type']} board {board_id} initialized")
 
-        logger.info(f"🔧 All boards initialized: {list(self.boards.keys())}")
         return self.boards
 
     def get_board(self, board_id):
@@ -73,5 +70,5 @@ class BoardManager:
                     board.cleanup()
                     logger.info(f"✅ Board {board_id} cleaned up successfully")
                 except Exception as e:
-                    logger.error(f"💢 Error cleaning up board {board_id}: {str(e)}")
+                    logger.error(f"💥 Error cleaning up board {board_id}: {str(e)}")
         logger.info("✅ BoardManager cleanup completed")

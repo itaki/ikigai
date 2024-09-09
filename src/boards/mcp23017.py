@@ -12,9 +12,9 @@ class MCP23017:
 
         try:
             self.mcp = MCP.MCP23017(i2c, address=self.i2c_address)
-            logger.info(f"🔧 Initializing MCP23017 at address {hex(self.i2c_address)} ({self.label})")
+            logger.info(f"🔮 Initialized MCP23017 {self.label} at {hex(self.i2c_address)}")
         except Exception as e:
-            logger.error(f"💢 Failed to initialize MCP23017 at address {hex(self.i2c_address)}: {str(e)}")
+            logger.error(f"💢 Failed to initialize MCP23017 {self.label} at address {hex(self.i2c_address)}: {str(e)}")
             raise e
 
     def setup_input(self, pin):

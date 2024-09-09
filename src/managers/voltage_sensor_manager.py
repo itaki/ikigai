@@ -29,8 +29,7 @@ class VoltageSensorManager:
             if sensor.board.is_initialized:
                 if sensor.update():
                     state_changed = True
-            else:
-                logger.debug(f"Waiting for board initialization for sensor {sensor.id}")
+
         return state_changed
 
     def cleanup(self):

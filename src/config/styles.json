@@ -2,7 +2,7 @@
     "RGBLED_button_styles": {
         "RGBLED_on_color": {
             "name": "bright_purple",
-            "red": "0x0000",
+            "red": "0xFFFF",
             "green": "0xFFFF",
             "blue": "0x0000"
         },
