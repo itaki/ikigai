@@ -17,14 +17,13 @@ class DustCollector:
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.pin, GPIO.OUT, initial=GPIO.LOW)
 
-        logger.info(f"🌀 Dust Collector '{self.label}' initialized on Raspberry Pi GPIO pin {self.pin}")
+        logger.info(f"✅ 💨 '{self.label}' initialized on RPi GPIO pin {self.pin}")
 
     def turn_on(self):
         if self.relay_status != "on":
             self.relay_status = "on"
             GPIO.output(self.pin, GPIO.HIGH)
             self.last_on_time = time.time()
-            logger.debug(f"🌀 Dust Collector '{self.label}' turned on")
             time.sleep(self.spin_up_delay)
 
     def turn_off(self):
@@ -32,7 +31,6 @@ class DustCollector:
             self.relay_status = "off"
             GPIO.output(self.pin, GPIO.LOW)
             self.last_off_time = time.time()
-            logger.debug(f"🌀 Dust Collector '{self.label}' turned off")
 
     def spindown(self):
         # Implement spindown routine if needed
@@ -40,5 +38,5 @@ class DustCollector:
 
     def cleanup(self):
         GPIO.cleanup(self.pin)
-        logger.debug(f"🌀 Dust Collector '{self.label}' GPIO cleaned up")
+        logger.debug(f"💨 Dust Collector '{self.label}' GPIO cleaned up")
 

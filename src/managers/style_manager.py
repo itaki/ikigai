@@ -7,7 +7,6 @@ class StyleManager:
         self.base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         self.config_dir = os.path.join(self.base_dir, 'config')
         self.styles_path = styles_path or os.path.join(self.config_dir, 'styles.json')
-        logger.debug(f"Using styles path: {self.styles_path}")
         self.styles = self.load_styles()
 
     def load_styles(self):

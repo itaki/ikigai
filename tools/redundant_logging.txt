@@ -60,7 +60,7 @@
 2024-09-07 19:15:23.715 | INFO     | managers.device_manager:initialize_devices:36 - ⛩️ GateManager initialized
 2024-09-07 19:15:23.733 | INFO     | managers.button_manager:initialize_buttons:22 - ✅ Button Hose Button initialized on board master_control_gpio_expander at pin 0
 2024-09-07 19:15:23.737 | INFO     | managers.button_manager:start_polling:31 - 🔍 Button polling started
-2024-09-07 19:15:23.740 | INFO     | managers.device_manager:initialize_devices:41 - 🔘 ButtonManager initialized and polling started
+2024-09-07 19:15:23.740 | INFO     | managers.device_manager:initialize_devices:41 - 🖲 ButtonManager initialized and polling started
 2024-09-07 19:15:23.743 | DEBUG    | devices.rgbled:__init__:14 - 💡 RGB LED 'Hose LED' initialized on board <boards.pca9685.PCA9685 object at 0x7fa0722010>, pins [0, 1, 2]
 2024-09-07 19:15:23.747 | INFO     | managers.rgbled_manager:initialize_rgbleds:19 - ✅ RGB LED Hose LED initialized on board master_control_pwm_led
 2024-09-07 19:15:23.750 | INFO     | managers.rgbled_manager:__init__:10 - Initialized RGB LEDs: ['hose_button_LED']
@@ -78,7 +78,7 @@
 2024-09-07 19:15:23.808 | DEBUG    | managers.voltage_sensor_manager:update:33 - Waiting for board initialization for sensor drill_press_voltage_sensor
 2024-09-07 19:15:23.814 | DEBUG    | managers.voltage_sensor_manager:update:33 - Waiting for board initialization for sensor table_saw_voltage_sensor
 2024-09-07 19:15:23.823 | DEBUG    | managers.voltage_sensor_manager:update:33 - Waiting for board initialization for sensor router_table_voltage_sensor
-2024-09-07 19:15:23.832 | INFO     | managers.device_manager:update:79 - 🔘 Button state changed: hose_button: off
+2024-09-07 19:15:23.832 | INFO     | managers.device_manager:update:79 - 🖲 Button state changed: hose_button: off
 2024-09-07 19:15:23.836 | INFO     | managers.gate_manager:set_gates:35 - ⛩️ No gates to open. Maintaining current gate states.
 2024-09-07 19:15:23.852 | DEBUG    | devices.rgbled:turn_off:28 - 💡 RGB LED 'Hose LED' turned off with color dark_blue
 2024-09-07 19:15:23.855 | INFO     | managers.device_manager:update_rgbleds:143 - 💡 LED states changed: hose_button_LED: off

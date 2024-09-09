@@ -59,7 +59,7 @@ class Gate:
         if self.previous_status != new_status:
             self.previous_status = new_status
             self.status = new_status
-            logger.info(f"     🔮 Gate {self.name} {new_status}.")
+            logger.info(f"⛩️ 🔮 Gate {self.name} {new_status}.")
 
     def identify(self):
         if hasattr(self.board, 'set_pwm_value'):

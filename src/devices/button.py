@@ -2,7 +2,6 @@ import logging
 from loguru import logger
 from digitalio import DigitalInOut, Direction, Pull
 
-logger = logging.getLogger(__name__)
 
 class Button:
     def __init__(self, config, board):
@@ -13,25 +12,21 @@ class Button:
         self.state = 'off'
         self.is_pressed = False
         self.error_logged = False
-        logger.debug(f"Button {self.label} initialized on pin {self.pin_number}")
+
         self.pin = None
         self.setup_pin()
 
 
     def setup_pin(self):
         try:
-            logger.debug(f"Attempting to get pin {self.pin_number} from board")
             self.pin = self.board.get_pin(self.pin_number)
-            logger.debug(f"Successfully got pin {self.pin_number}")
             self.pin.direction = Direction.INPUT
-            logger.debug(f"Set direction to INPUT for pin {self.pin_number}")
             self.pin.pull = Pull.UP
-            logger.debug(f"Set pull-up for pin {self.pin_number}")
-            logger.debug(f"Button '{self.label}' pin setup complete on pin {self.pin_number}")
+            logger.info(f"✅ 🔘 Button {self.label} initialized on pin {self.pin_number}")
         except AttributeError as e:
-            logger.error(f"Board for button {self.label} does not support required methods: {e}")
+            logger.error(f"💢 🔘 Board for button {self.label} does not support required methods: {e}")
         except Exception as e:
-            logger.error(f"Error setting up pin {self.pin_number} for button {self.label}: {e}")
+            logger.error(f"💢 🔘 Error setting up pin {self.pin_number} for button {self.label}: {e}")
 
     def read_pin(self):
         try:
@@ -39,17 +34,17 @@ class Button:
                 return not self.pin.value  # Invert because we're using pull-up resistors
             else:
                 if error_logged is False:
-                    logger.error(f"Pin not set up for button {self.label}")
+                    logger.error(f"💢 🔘 Pin not set up for button {self.label}")
                     error_logged = True
                 return None
         except Exception as e:
             if self.error_logged is False:
-                logger.error(f"Error reading pin {self.pin_number} for button {self.label}: {e}")
+                logger.error(f"💢 🔘 Error reading pin {self.pin_number} for button {self.label}: {e}")
                 self.error_logged = True
             return None
 
     def cleanup(self):
-        logger.debug(f"Cleaning up Button {self.label}")
+        logger.debug(f"🧹 🔘 Cleaning up Button {self.label}")
         # No specific cleanup needed for MCP23017 buttons
 
 # For testing, you can add a main function to instantiate and run this button class
@@ -77,7 +72,7 @@ if __name__ == "__main__":
 
     # Status callback
     def status_callback(status):
-        logger.debug(f"Button status: {status}")
+        logger.debug(f"🔘 Button status: {status}")
 
     # Instantiate and set up the button
     button = Button(config=button_config, board=mcp, status_callback=status_callback)

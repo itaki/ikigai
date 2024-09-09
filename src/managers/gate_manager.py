@@ -22,7 +22,7 @@ class GateManager:
                 try:
                     self.gates[gate_id] = Gate(gate_id, gate_config, self.boards)
                     self.previous_gate_states[gate_id] = gate_config['status']  # Initialize previous state
-                    logger.info(f"✅ Gate {gate_id} initialized on board {board_id}")
+                    logger.info(f"✅ ⛩️  Gate {gate_id} initialized on board {board_id}")
                 except Exception as e:
                     logger.error(f"💢 Error initializing gate {gate_id}: {str(e)}")
         except Exception as e:
@@ -32,7 +32,6 @@ class GateManager:
     def set_gates(self, gates_to_open):
         try:
             if not gates_to_open:
-                logger.info("⛩️ No gates to open. Maintaining current gate states.")
                 return  # Exit the method early if gates_to_open is empty
 
             changed_gates = []
@@ -51,7 +50,7 @@ class GateManager:
                 gate.stop_servo()
 
             if changed_gates:
-                logger.info(f"⛩️ Gates updated: {', '.join(changed_gates)}")
+                logger.info(f"⛩️  Gates updated: {', '.join(changed_gates)}")
         except Exception as e:
             logger.error(f"💢 Error setting gates: {str(e)}")
 
@@ -103,7 +102,6 @@ class GateManager:
             self.last_active_device = active_tool
         elif self.last_active_device and not open_gates:
             # If no active tools and we have a last active device, maintain current gate states
-            logger.info(f"⛩️ Maintaining current gate states for last active device: {self.last_active_device.id}")
             return []
 
         return open_gates
@@ -116,6 +114,6 @@ class GateManager:
         logger.info("🧹 Cleaning up GateManager")
         for gate in self.gates.values():
             gate.stop_servo()
-        logger.info("✅ All gates closed during cleanup")
+        logger.info("✅ ⛩️  All gates closed during cleanup")
 
 

@@ -5,6 +5,7 @@ class PCA9685:
     def __init__(self, i2c, config, app_config):
         self.i2c_address = int(config['i2c_address'], 16)
         self.mode = config.get('purpose', 'LED Control')  # Default to LED Control if not specified
+        self.label = config.get('label', 'Unknown')
 
         try:
             # Initialize the Adafruit PCA9685 object
@@ -12,13 +13,13 @@ class PCA9685:
             if self.mode == 'Servo Control':
                 frequency = config.get('frequency', 50)  # Default to 50Hz for servos
                 self.set_frequency(frequency)
-                logger.info(f"🔮 Initialized PCA9685 at address {hex(self.i2c_address)} in Servo Control mode with frequency {frequency}Hz as board ID {config['id']}")
+                logger.info(f"🔮 Initialized PCA9685 {self.label} at {hex(self.i2c_address)} in Servo Control mode with frequency {frequency}Hz")
             else:
                 frequency = config.get('frequency', 1000)  # Default to 1000Hz for LEDs
                 self.set_frequency(frequency)
-                logger.info(f"🔮 Initialized PCA9685 at address {hex(self.i2c_address)} in LED Control mode with frequency {frequency}Hz as board ID {config['id']}")
+                logger.info(f"🔮 Initialized PCA9685 {self.label} at {hex(self.i2c_address)} in LED Control mode with frequency {frequency}Hz")
         except Exception as e:
-            logger.error(f"💢 Failed to initialize PCA9685 at address {hex(self.i2c_address)}: {str(e)}")
+            logger.error(f"💢 Failed to initialize PCA9685({self.label} at {hex(self.i2c_address)}: {str(e)}")
             raise e
 
     @property

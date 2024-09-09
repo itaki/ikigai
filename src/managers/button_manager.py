@@ -12,14 +12,17 @@ class ButtonManager:
         self.polling_thread = None
         self.initialize_buttons(device_config)
 
+
     def initialize_buttons(self, device_config):
         for device in device_config:
             if device['type'] == 'button':
                 board = self.boards.get(device['connection']['board'])
                 if board:
-                    button = Button(device, board)
-                    self.buttons[device['id']] = button
-                    logger.info(f"✅ Button {button.label} initialized on board {device['connection']['board']} at pin {button.pin_number}")
+                    try:
+                        button = Button(device, board)
+                        self.buttons[device['id']] = button
+                    except Exception as e:
+                        logger.error(f"💢 Failed to initialize button {device['label']}: {e}")
                 else:
                     logger.error(f"💢 Board {device['connection']['board']} not found for button {device['label']}")
 

@@ -35,7 +35,6 @@ def initialize_managers(i2c):
     devices_config = config_loader.get_devices()
     gates_config = config_loader.get_gates()
 
-    # Ensure boards_config is a dictionary
     if isinstance(boards_config, list):
         boards_config = {board['id']: board for board in boards_config}
 
@@ -44,10 +43,9 @@ def initialize_managers(i2c):
 
     style_manager = StyleManager()
     rgbled_styles = style_manager.get_styles()
-    logger.info("🎨 StyleManager initialized")
 
     device_manager = DeviceManager(devices_config, gates_config, boards, rgbled_styles, app_config)
-    logger.info("🔧 DeviceManager initialized")
+    logger.info("🔧 Managers initialized: BoardManager, StyleManager, DeviceManager")
     
     return board_manager, device_manager
 
@@ -55,17 +53,13 @@ def main():
     device_manager = None
     board_manager = None
     try:
-        logger.info("🔧 Starting the shop management application...")
+        logger.info("🚀 Starting the shop management application...")
         
-        # Initialize I2C interface
-        logger.info("🔌 Initializing I2C interface")
         i2c = busio.I2C(board.SCL, board.SDA)
-        logger.info("✅ I2C interface initialized")
+        logger.info("🔌 I2C interface initialized")
 
-        # Initialize GUI if enabled
         app, main_window = initialize_gui()
 
-        # Initialize managers
         board_manager, device_manager = initialize_managers(i2c)
 
         # Main application loop
@@ -77,19 +71,19 @@ def main():
                 time.sleep(0.1)  # Adjust as needed to control loop speed
 
             except Exception as e:
-                logger.error(f"💢 An error occurred during device update: {str(e)}")
+                logger.error(f"💥 An error occurred during device update: {str(e)}")
                 break  # Exit the loop on error
 
     except KeyboardInterrupt:
-        logger.info("Program interrupted by user")
+        logger.info("🛑 Program interrupted by user")
     except Exception as e:
-        logger.error(f"💢 An error occurred in the shop management application: {str(e)}")
+        logger.error(f"💥 An error occurred in the shop management application: {str(e)}")
     finally:
         if device_manager:
             device_manager.cleanup()
         if board_manager:
             board_manager.cleanup()
-        logger.info("All threads and resources cleaned up gracefully.")
+        logger.info("🧹 All threads and resources cleaned up gracefully.")
 
 if __name__ == "__main__":
     main()

@@ -7,7 +7,6 @@ class RGBLEDManager:
         self.rgb_leds = {}
         self.rgbled_styles = rgbled_styles
         self.initialize_rgbleds(device_config)
-        logger.info(f"Initialized RGB LEDs: {list(self.rgb_leds.keys())}")
 
     def initialize_rgbleds(self, device_config):
         for device in device_config:
@@ -18,7 +17,7 @@ class RGBLEDManager:
                     self.rgb_leds[device['id']] = rgbled
                     logger.info(f"✅ RGB LED {rgbled.label} initialized on board {device['connection']['board']}")
                 else:
-                    logger.error(f"💢 Board {device['connection']['board']} not found for RGB LED {device['label']}")
+                    logger.error(f"❌ Board {device['connection']['board']} not found for RGB LED {device['label']}")
 
     def set_led_state(self, led_id, state):
         led = self.rgb_leds.get(led_id)

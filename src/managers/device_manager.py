@@ -29,28 +29,27 @@ class DeviceManager:
 
     def initialize_devices(self):
         try:
-            logger.info(f"🔧 Available boards: {list(self.boards.keys())}")
 
             if self.use_devices.get("USE_GATES", False):
                 self.gate_manager = GateManager(self.boards, self.gates_config)
-                logger.info("⛩️ GateManager initialized")
+                logger.info("⛩️⛩️⛩️  GateManager initialized ⛩️⛩️⛩️")
 
             if self.use_devices.get("USE_BUTTONS", False):
                 self.button_manager = ButtonManager(self.device_config, self.boards)
                 self.button_manager.start_polling()
-                logger.info("🔘 ButtonManager initialized and polling started")
+                logger.info("🔘🔘🔘 ButtonManager initialized and polling started 🔘🔘🔘")
 
             if self.use_devices.get("USE_RGB_LEDS", False):
                 self.rgbled_manager = RGBLEDManager(self.device_config, self.boards, self.rgbled_styles)
-                logger.info("💡 RGBLEDManager initialized")
+                logger.info("💡💡💡 RGBLEDManager initialized 💡💡💡")
 
             if self.use_devices.get("USE_DUST_COLLECTORS", False):
                 self.dust_collector_manager = DustCollectorManager(self.device_config)
-                logger.info("💨 DustCollectorManager initialized")
+                logger.info("💨💨💨 DustCollectorManager initialized 💨💨💨")
 
             if self.use_devices.get("USE_VOLTAGE_SENSORS", False):
                 self.voltage_sensor_manager = VoltageSensorManager(self.device_config, self.boards, self.app_config)
-                logger.info("⚡ VoltageSensorManager initialized")
+                logger.info("⚡⚡⚡ VoltageSensorManager initialized ⚡⚡⚡")
 
         except Exception as e:
             logger.error(f"💢 Error initializing devices: {str(e)}")
@@ -68,7 +67,6 @@ class DeviceManager:
                 if voltage_state_changed:
                     changed_sensors = [f"{k}: {v['state']}" for k, v in current_voltage_states.items() if self.previous_voltage_states.get(k, {}).get('state') != v['state']]
                     if changed_sensors:
-                        logger.info(f"⚡ Voltage sensor state changed: {', '.join(changed_sensors)}")
                         state_changed = True
 
             if self.use_devices.get("USE_BUTTONS", False) and self.button_manager:
@@ -104,7 +102,7 @@ class DeviceManager:
                 logger.info(f"  ⚡ {status['label']}: {status['state']} (Calibrated: {status['is_calibrated']})")
         if self.button_manager:
             for button_id, status in self.button_manager.get_all_button_statuses().items():
-                logger.info(f"  🔘 {button_id}: {status}")
+                logger.info(f"  � {button_id}: {status}")
 
     def get_gates_to_open(self, voltage_states, button_states):
         gates_to_open = set()
