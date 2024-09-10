@@ -1,0 +1,11 @@
+024-09-10 16:07:12.810 | INFO     | __main__:main:37 - Processing file: voltage_readings_island_ad_converter_20240909_195640.parquet
+2024-09-10 16:07:12.828 | INFO     | __main__:main:41 - voltage_0: Maximum rolling standard deviation: 0.0009424495412588323
+2024-09-10 16:07:12.828 | INFO     | __main__:main:41 - voltage_1: Maximum rolling standard deviation: 0.0008204065498552023
+2024-09-10 16:07:12.828 | INFO     | __main__:main:41 - voltage_2: Maximum rolling standard deviation: 0.0006838847251521556
+2024-09-10 16:07:12.828 | INFO     | __main__:main:41 - voltage_3: Maximum rolling standard deviation: 0.0007382560770194632
+2024-09-10 16:07:12.829 | INFO     | __main__:main:42 - ---
+2024-09-10 16:07:12.829 | INFO     | __main__:main:37 - Processing file: voltage_readings_master_control_ad_converter_20240909_194407.parquet
+2024-09-10 16:07:12.831 | INFO     | __main__:main:41 - voltage_0: Maximum rolling standard deviation: 0.0007752106310137617
+2024-09-10 16:07:12.831 | INFO     | __main__:main:41 - voltage_1: Maximum rolling standard deviation: 0.0008892835995965976
+2024-09-10 16:07:12.831 | INFO     | __main__:main:41 - voltage_2: Maximum rolling standard deviation: 0.002305057757633318
+2024-09-10 16:07:12.831 | INFO     | __main__:main:41 - voltage_3: Maximum rolling standard deviation: 0.018275905557825215

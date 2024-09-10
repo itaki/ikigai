@@ -16,7 +16,7 @@ Adafruit-CircuitPython-PCA9685   # For PCA9685 PWM/Servo/LED controller
 Adafruit-CircuitPython-ADS1x15   # For ADS1115 ADC
 adafruit-circuitpython-servokit  # For ServoKit
 # Additional dependencies (if needed)
-RPi.GPIO                         # For direct GPIO pin control on Raspberry Pi
+#RPi.GPIO                         # For direct GPIO pin control on Raspberry Pi
 smbus2                           # SMBus support, often used with I2C on Raspberry Pi
 requests
 
@@ -33,3 +33,4 @@ psutil
 # Testing and utilities
 pytest                           # For testing
 keyboard
+seaborn
