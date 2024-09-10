@@ -1,0 +1,20 @@
+{
+  "board_id": "island_ad_converter",
+  "device_label": "Voltage Detector - Island",
+  "collection_start": "2024-09-09 22:10:26",
+  "intended_duration_minutes": 10.0,
+  "actual_duration_minutes": 10.0,
+  "intended_sample_rate": 128,
+  "actual_sample_rate": 25.13,
+  "total_samples": 15080,
+  "errors": 0,
+  "cpu_usage_percent": 5.4,
+  "memory_usage_percent": 79.1,
+  "pin_assignments": {
+    "0": "Table Saw Voltage Sensor",
+    "1": "Pin 1",
+    "2": "Pin 2",
+    "3": "Pin 3"
+  },
+  "parquet_file": "voltage_readings_island_ad_converter_20240909_221026.parquet"
+}

@@ -12,7 +12,7 @@ import psutil
 import hashlib
 import json
 from collections import deque
-import sys
+import os
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import QObject, pyqtSignal, QThread
 
@@ -88,7 +88,8 @@ class DataCollector(QObject):
                     next_sample_time += interval
 
                     expected_samples = int((time.time() - start_time) * self.sample_rate_hz)
-                    qualities = [count / expected_samples if expected_samples > 0 else 1.0 for count in sample_counts]
+                    expected_samples_per_pin = expected_samples // 4  # Divide by 4 for each pin
+                    qualities = [min(count / expected_samples_per_pin, 1.0) if expected_samples_per_pin > 0 else 1.0 for count in sample_counts]
                     self.quality_updated.emit(qualities)
 
                     self.progress_updated.emit(int((time.time() - start_time) / duration_seconds * 100))
@@ -100,7 +101,8 @@ class DataCollector(QObject):
         except Exception as e:
             logger.error(f"Error during data collection: {e}")
             self.io_error_occurred.emit(f"Error during data collection: {str(e)}")
-            return
+        finally:
+            self.cleanup_resources()
 
         actual_duration = time.time() - start_time
         actual_rate = sum(sample_counts) / actual_duration / 4
@@ -138,29 +140,38 @@ class DataCollector(QObject):
         self.terminate_flag = True
 
     def cleanup_resources(self):
-        if self.ads:
-            # Perform any necessary cleanup for the ADS object
-            pass
-        if self.i2c:
-            self.i2c.deinit()
-        logger.info("Resources cleaned up")
+        try:
+            if self.ads:
+                # Perform any necessary cleanup for the ADS object
+                pass
+            if self.i2c:
+                self.i2c.deinit()
+            logger.info("Resources cleaned up")
+        except Exception as e:
+            logger.error(f"Error during resource cleanup: {e}")
 
 def save_data(data, metadata, board_id):
-    os.makedirs('test_data', exist_ok=True)
+    # Get the directory of the current script
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    
+    # Create the test_data directory path
+    test_data_dir = os.path.join(current_dir, 'test_data')
+    
+    # Ensure the test_data directory exists
+    os.makedirs(test_data_dir, exist_ok=True)
+    
+    # Create the filenames with the correct path
+    parquet_filename = os.path.join(test_data_dir, f"voltage_readings_{board_id}_{time.strftime('%Y%m%d_%H%M%S')}.parquet")
     
     table = pa.Table.from_pydict(data)
-    parquet_filename = f"test_data/voltage_readings_{board_id}_{time.strftime('%Y%m%d_%H%M%S')}.parquet"
     
-    # Convert all metadata values to strings and ensure keys are strings
-    string_metadata = {str(k): str(v) for k, v in metadata.items()}
-    
-    # Write the table with metadata in a single operation
-    pq.write_table(table, parquet_filename, compression='snappy', metadata=string_metadata)
+    # Write the table without metadata
+    pq.write_table(table, parquet_filename, compression='snappy')
     
     json_filename = parquet_filename.replace('.parquet', '_metadata.json')
     companion_metadata = {
         'board_id': board_id,
-        'device_label': metadata['device_id'],
+        'device_label': metadata['device_label'],
         'collection_start': time.strftime('%Y-%m-%d %H:%M:%S'),
         'intended_duration_minutes': metadata['intended_duration'] / 60,
         'actual_duration_minutes': round(metadata['actual_duration'] / 60, 2),

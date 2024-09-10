@@ -70,10 +70,6 @@ class VoltageCollectorGUI(QMainWindow):
         self.stop_button.setEnabled(False)
         button_layout.addWidget(self.stop_button)
 
-        self.quit_button = QPushButton("Quit")
-        self.quit_button.clicked.connect(self.close)
-        button_layout.addWidget(self.quit_button)
-
         layout.addLayout(button_layout)
 
         self.status_label = QLabel("Status: Idle")
