@@ -8,19 +8,16 @@ class VoltageSensor:
         self.label = config['label']
         self.board_id = config['connection']['board']
         self.pin = config['connection']['pin']
-        self.window_size = config['preferences'].get('window_size', app_config['VOLTAGE_SENSOR_SETTINGS']['WINDOW_SIZE'])
-        self.threshold_multiplier = config['preferences'].get('threshold_standard_deviation_multiplier', 
-                                                              app_config['VOLTAGE_SENSOR_SETTINGS']['DEFAULT_THRESHOLD_DEVIATION'])
+        self.window_size = app_config['VOLTAGE_SENSOR_SETTINGS']['WINDOW_SIZE']
+        self.sd_threshold = config['preferences'].get('rolling_sd_threshold', 
+                                                      app_config['VOLTAGE_SENSOR_SETTINGS']['DEFAULT_THRESHOLD'])
         self.max_errors = app_config['VOLTAGE_SENSOR_SETTINGS']['MAX_ERRORS']
         
         self.readings = []
-        self.baseline_std = None
-        self.threshold = None
         self.state = 'off'
-        self.is_calibrated = False
         self.error_count = 0
         self.status = "Initializing"
-        self.last_calibration_time = 0
+        self.is_calibrated = False
 
     def set_board(self, board):
         self.board = board
@@ -32,8 +29,8 @@ class VoltageSensor:
 
         try:
             self.readings = self.board.get_readings(self.pin)[-self.window_size:]
-            if not self.readings:
-                logger.error(f"❌ No readings for Voltage Sensor {self.id}")
+            if not self.is_calibrated:
+                self.calibrate()
                 return False
 
         except Exception as e:
@@ -44,33 +41,33 @@ class VoltageSensor:
             return False
 
         self.error_count = 0
-
-        if not self.is_calibrated:
-            return self.calibrate()
-
         return self.check_state()
 
     def calibrate(self):
         if len(self.readings) < self.window_size:
-            logger.info(f"⏳ Waiting on {self.window_size} readings to calibrate {self.id}. Current: {len(self.readings)}/{self.window_size}")
+            return False  # Not enough readings yet
+        
+        current_std = np.std(self.readings)
+        if np.isnan(current_std):
+            logger.warning(f"❌ {self.id} has NaN standard deviation. Readings: {len(self.readings)}")
             return False
 
-        self.baseline_std = np.std(self.readings)
-        self.threshold = self.baseline_std * self.threshold_multiplier
-        self.is_calibrated = True
-        self.last_calibration_time = time.time()
-        logger.info(f"✅ {self.label} calibrated. Baseline Std Dev: {self.baseline_std:.6f}V, Threshold: {self.threshold:.6f}V, original multiplier: {self.threshold_multiplier}")
-        return True
+        if self.sd_threshold > current_std:
+            self.is_calibrated = True
+            logger.info(f"✅ Calibrated Voltage Sensor {self.id}. Threshold set to {self.sd_threshold:.6f}V")
+            return True
+        else:
+            logger.warning(f"❌ {self.id} Current std: {current_std:.6f}V, threshold: {self.sd_threshold:.6f}V")
+            return False
 
     def check_state(self):
         current_std = np.std(self.readings)
-        new_state = 'on' if current_std > self.threshold else 'off'
+        new_state = 'on' if current_std > self.sd_threshold else 'off'
         
         if new_state != self.state:
             self.state = new_state
             logger.info(f"⚡ {self.label} state changed to: {self.state.upper()}")
-            current_std_ratio = current_std/self.baseline_std
-            logger.debug(f"⚡ current std: {current_std:.6f}V, threshold: {self.threshold:.6f}V, multi: {current_std_ratio:.6f}, original multiplier: {self.threshold_multiplier}")
+            logger.debug(f"⚡ current std: {current_std:.6f}V, threshold: {self.sd_threshold:.6f}V")
             return True
 
         return False
@@ -83,11 +80,10 @@ class VoltageSensor:
             "id": self.id,
             "label": self.label,
             "state": self.state,
-            "is_calibrated": self.is_calibrated,
-            "baseline_std": self.baseline_std,
-            "threshold": self.threshold,
+            "sd_threshold": self.sd_threshold,
             "current_std": np.std(self.readings) if self.readings else None,
-            "status": self.status
+            "status": self.status,
+            "is_calibrated": self.is_calibrated
         }
 
     def cleanup(self):
@@ -96,10 +92,7 @@ class VoltageSensor:
     def reset(self):
         self.readings = []
         self.state = 'off'
-        self.baseline_std = None
-        self.threshold = None
-        self.is_calibrated = False
         self.error_count = 0
         self.status = "Reset"
-        self.last_calibration_time = 0
+        self.is_calibrated = False
         logger.info(f"🔄 Voltage Sensor {self.id} reset")

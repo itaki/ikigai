@@ -28,8 +28,8 @@ class VoltageSensorManager:
         for sensor in self.sensors.values():
             if sensor.board.is_initialized:
                 if sensor.update():
-                    state_changed = True
-
+                    if sensor.is_calibrated:
+                        state_changed = True
         return state_changed
 
     def cleanup(self):
@@ -54,4 +54,25 @@ class VoltageSensorManager:
         return sensor.get_status() if sensor else None
 
     def get_all_sensor_statuses(self):
-        return {sensor_id: sensor.get_status() for sensor_id, sensor in self.sensors.items() if sensor.is_calibrated}
+        return {sensor_id: sensor.get_status() for sensor_id, sensor in self.sensors.items()}
+
+    def reset_sensor(self, sensor_id):
+        sensor = self.sensors.get(sensor_id)
+        if sensor:
+            sensor.reset()
+            logger.info(f"Reset sensor {sensor_id}")
+        else:
+            logger.error(f"Sensor {sensor_id} not found")
+
+    def reset_all_sensors(self):
+        for sensor in self.sensors.values():
+            sensor.reset()
+        logger.info("Reset all sensors")
+
+    def update_sensor_threshold(self, sensor_id, new_threshold):
+        sensor = self.sensors.get(sensor_id)
+        if sensor:
+            sensor.sd_threshold = new_threshold
+            logger.info(f"Updated threshold for sensor {sensor_id} to {new_threshold}")
+        else:
+            logger.error(f"Sensor {sensor_id} not found")

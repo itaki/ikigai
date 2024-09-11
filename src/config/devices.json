@@ -105,8 +105,7 @@
         "id": "miter_saw_voltage_sensor",
         "physical_location": "By the Miter Saw",
         "preferences": {
-            "threshold_standard_deviation_multiplier": 3,
-            "window_size": 40,
+            "rolling_sd_threshold": 0.03,
             "use_collector": ["main_collector"],
             "gate_prefs": ["MiterSaw", "MiterSaw_Right", "MiterSaw_Left"],
             "spin_down_time": 10
@@ -122,8 +121,7 @@
         "id": "band_saw_voltage_sensor",
         "physical_location": "By the Band Saw",
         "preferences": {
-            "threshold_standard_deviation_multiplier": 1.8                                                                                                       ,
-            "window_size": 100,
+            "rolling_sd_threshold": 0.030                                                                                                   ,
             "use_collector": ["main_collector"],
             "gate_prefs": ["BandSaw", "Corner_Branch"],
             "spin_down_time": 10
@@ -139,8 +137,7 @@
         "id": "table_saw_voltage_sensor",
         "physical_location": "By the Table Saw",
         "preferences": {
-            "threshold_standard_deviation_multiplier": 3,
-            "window_size": 40,
+            "rolling_sd_threshold": 0.0300,
             "use_collector": ["main_collector"],
             "gate_prefs": ["Table_Saw_Main", "Black_Diamond", "Everest_Access"],
             "spin_down_time": 10
@@ -148,6 +145,22 @@
         "connection": {
             "board": "island_ad_converter",
             "pin": 0
+        }
+    },
+    {
+        "label": "Router Table Voltage Sensor",
+        "type": "voltage_sensor",
+        "id": "router_table_voltage_sensor",
+        "physical_location": "By the Table Saw",
+        "preferences": {
+            "rolling_sd_threshold": 0.030,
+            "use_collector": ["main_collector"],
+            "gate_prefs": ["Table_Saw_Main", "Black_Diamond", "Everest_Access"],
+            "spin_down_time": 10
+        },
+        "connection": {
+            "board": "island_ad_converter",
+            "pin": 1
         }
     },
     {
