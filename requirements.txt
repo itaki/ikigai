@@ -1,36 +1,78 @@
 # Basic dependencies
-logging
-loguru
+logging==0.4.9.6
+loguru==0.7.2
 
 # GUI
-PyQt6
+PyQt6==6.7.1
 
 # Adafruit CircuitPython libraries
-Adafruit-Blinka                  # This is the CircuitPython compatibility layer
-Adafruit-PlatformDetect          # Used by Blinka to detect the platform you're running on
-Adafruit-PureIO                  # Pure Python (and pure I2C) GPIO libraries
-
-# Specific Adafruit libraries for your hardware
-Adafruit-CircuitPython-MCP230xx  # For MCP23017 GPIO Expander
-Adafruit-CircuitPython-PCA9685   # For PCA9685 PWM/Servo/LED controller
-Adafruit-CircuitPython-ADS1x15   # For ADS1115 ADC
-adafruit-circuitpython-servokit  # For ServoKit
-# Additional dependencies (if needed)
-#RPi.GPIO                         # For direct GPIO pin control on Raspberry Pi
-smbus2                           # SMBus support, often used with I2C on Raspberry Pi
-requests
-
+Adafruit-Blinka==8.47.0
+adafruit-circuitpython-ads1x15==2.4.0
+adafruit-circuitpython-busdevice==5.2.9
+adafruit-circuitpython-connectionmanager==3.1.1
+adafruit-circuitpython-mcp230xx==2.5.13
+adafruit-circuitpython-motor==3.4.13
+adafruit-circuitpython-pca9685==3.4.15
+adafruit-circuitpython-register==1.9.18
+adafruit-circuitpython-requests==4.1.6
+adafruit-circuitpython-servokit==1.3.17
+adafruit-circuitpython-typing==1.11.0
+Adafruit-PlatformDetect==3.74.0
+Adafruit-PureIO==1.1.11
+binho-host-adapter==0.1.6
+certifi==2024.8.30
+charset-normalizer==3.3.2
+contourpy==1.3.0
+cycler==0.12.1
+fonttools==4.53.1
+idna==3.8
+iniconfig==2.0.0
+keyboard==0.13.5
+kiwisolver==1.4.7
+logging==0.4.9.6
+loguru==0.7.2
+matplotlib==3.9.2
+numpy==2.1.1
+packaging==24.1
+pandas==2.2.2
+pillow==10.4.0
+pluggy==1.5.0
+psutil==6.0.0
+pyarrow==17.0.0
+pyftdi==0.55.4
+pyparsing==3.1.4
+PyQt6==6.7.1
+PyQt6-Qt6==6.7.2
+PyQt6_sip==13.8.0
+pyqtgraph==0.13.7
+pyserial==3.5
+pytest==8.3.2
+python-dateutil==2.9.0.post0
+pytz==2024.1
+pyusb==1.2.1
+requests==2.32.3
+RPi.GPIO==0.7.1
+rpi_ws281x==5.0.0
+scipy==1.14.1
+seaborn==0.13.2
+sip==6.8.6
+six==1.16.0
+smbus2==0.4.3
+sysv_ipc==1.1.0
+typing_extensions==4.12.2
+tzdata==2024.1
+urllib3==2.2.2
 
 # Math
-numpy
-scipy
-matplotlib
-pandas
+numpy==2.1.1
+scipy==1.14.1
+matplotlib==3.9.2
+pandas==2.2.2
 matplotlib  
-pyarrow   
-psutil                 
+pyarrow==17.0.0   
+psutil==6.0.0
 
 # Testing and utilities
-pytest                           # For testing
-keyboard
-seaborn
+pytest==8.3.2                           # For testing
+keyboard==0.13.5
+seaborn==0.13.2
