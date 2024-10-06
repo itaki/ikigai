@@ -87,9 +87,9 @@ class AnalysisWindow(QMainWindow):
             logger.warning("Please select different files for comparison")
             return
 
-        data1 = load_parquet_data(f'tools/ad_converter_data_collector/test_data/{file1}.parquet')
-        data2 = load_parquet_data(f'tools/ad_converter_data_collector/test_data/{file2}.parquet')
-        metadata1 = load_metadata(f'tools/ad_converter_data_collector/test_data/{file1}_metadata.json')
+        data1 = load_parquet_data(f'_test_data/AD_Data_Collector/{file1}.parquet')
+        data2 = load_parquet_data(f'_test_data/AD_Data_Collector/{file2}.parquet')
+        metadata1 = load_metadata(f'_test_data/AD_Data_Collector/{file1}_metadata.json')
 
         # Remove the first data point from both datasets
         data1 = data1.iloc[1:]

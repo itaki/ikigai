@@ -28,8 +28,7 @@ class VoltageSensorManager:
         for sensor in self.sensors.values():
             if sensor.board.is_initialized:
                 if sensor.update():
-                    if sensor.is_calibrated:
-                        state_changed = True
+                    state_changed = True
         return state_changed
 
     def cleanup(self):

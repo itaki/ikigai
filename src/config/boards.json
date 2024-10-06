@@ -26,7 +26,7 @@
         "frequency": 1000
     },
     {
-        "label": "Voltage Detector - Master Control",
+        "label": "AD Converter - Master Control",
         "type": "ADS1115",
         "id": "master_control_ad_converter",
         "location": "Master Control",
@@ -60,7 +60,7 @@
         "frequency": 1000
     },
     {
-        "label": "Voltage Detector - Island",
+        "label": "AD Converter - Island",
         "type": "ADS1115",
         "id": "island_ad_converter",
         "location": "Center Island",

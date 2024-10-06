@@ -14,7 +14,11 @@
         "USE_GATES": true
     },
     "ADS1115_SETTINGS": {
-        "FAST_DATA_RATE": 860,
+        "NORMAL_DATA_RATE": 128,
+        "INITIAL_READINGS": 100,
+        "MAX_READINGS": 1000
+    },
+    "ADS1015_SETTINGS": {
         "NORMAL_DATA_RATE": 128,
         "INITIAL_READINGS": 100,
         "MAX_READINGS": 1000

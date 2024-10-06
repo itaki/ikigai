@@ -6,6 +6,7 @@ from utils.config_loader import ConfigLoader
 from managers.board_manager import BoardManager
 from managers.device_manager import DeviceManager
 from managers.style_manager import StyleManager
+from gui.main_window import MainWindow
 
 # Configure Loguru logger
 logger.add("logs/shop_manager.log", rotation="1 MB")
@@ -20,12 +21,15 @@ USE_GUI = app_config.get('USE_GUI', False)
 USE_BOARDS = app_config.get('USE_BOARDS', {})
 USE_DEVICES = app_config.get('USE_DEVICES', {})
 
-def initialize_gui():
+def initialize_gui(board_manager, device_manager):
     if USE_GUI:
         from gui.main_window import MainWindow
+        from gui.app_state import AppState
         from PyQt6.QtWidgets import QApplication
+        logger.info("🖥️ Initializing GUI")
         app = QApplication([])
-        main_window = MainWindow()
+        app_state = AppState(board_manager, device_manager)
+        main_window = MainWindow(app_state)
         logger.info("🖥️ GUI initialized")
         return app, main_window
     return None, None
@@ -58,21 +62,22 @@ def main():
         i2c = busio.I2C(board.SCL, board.SDA)
         logger.info("🔌 I2C interface initialized")
 
-        app, main_window = initialize_gui()
-
         board_manager, device_manager = initialize_managers(i2c)
 
-        # Main application loop
-        while True:
-            try:
-                device_manager.update()
-                if USE_GUI:
-                    app.processEvents()
-                time.sleep(0.1)  # Adjust as needed to control loop speed
+        app, main_window = initialize_gui(board_manager, device_manager)
 
-            except Exception as e:
-                logger.error(f"💥 An error occurred during device update: {str(e)}")
-                break  # Exit the loop on error
+        if USE_GUI:
+            main_window.show()
+            app.exec()
+        else:
+            # Main application loop for non-GUI mode
+            while True:
+                try:
+                    device_manager.update()
+                    time.sleep(0.1)  # Adjust as needed to control loop speed
+                except Exception as e:
+                    logger.error(f"💥 An error occurred during device update: {str(e)}")
+                    break  # Exit the loop on error
 
     except KeyboardInterrupt:
         logger.info("🛑 Program interrupted by user")

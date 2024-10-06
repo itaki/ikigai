@@ -10,7 +10,7 @@ min = 80
 max = 100
 
 while True:
-    for gate in range(7, 9):
+    for gate in range(0, 9):
         kit.servo[gate].angle = min 
         time.sleep(.5)
         kit.servo[gate].angle = max

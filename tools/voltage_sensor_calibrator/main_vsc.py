@@ -12,7 +12,8 @@ import xml.etree.ElementTree as ET
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import QThread, pyqtSignal
 from loguru import logger
-import adafruit_ads1x15.ads1115 as ADS
+import adafruit_ads1x15.ads1115 as ADS1115_MODULE
+import adafruit_ads1x15.ads1015 as ADS1015_MODULE
 from adafruit_ads1x15.analog_in import AnalogIn
 
 # Add the src directory to the Python path
@@ -30,10 +31,18 @@ logger.add("logs/voltage_sensor_calibrator.log", rotation="1 MB")
 
 class ADS1115Wrapper:
     def __init__(self, i2c, address):
-        self.ads = ADS.ADS1115(i2c, address=address)
+        self.ads = ADS1115_MODULE.ADS1115(i2c, address=address)
 
     def get_reading(self, pin):
-        chan = AnalogIn(self.ads, getattr(ADS, f'P{pin}'))
+        chan = AnalogIn(self.ads, getattr(ADS1115_MODULE, f'P{pin}'))
+        return chan.voltage
+    
+class ADS1015Wrapper:
+    def __init__(self, i2c, address):
+        self.ads = ADS1115_MODULE.ADS1115(i2c, address=address)
+
+    def get_reading(self, pin):
+        chan = AnalogIn(self.ads, getattr(ADS1015_MODULE, f'P{pin}'))
         return chan.voltage
 
 
@@ -104,17 +113,21 @@ class CalibrationTool:
         if board_id not in self.boards:
             logger.info(f"Board {board_id} not initialized. Initializing now.")
             if board_config['type'] == 'ADS1115':
-                try:
-                    if self.i2c is None:
-                        raise ValueError("I2C interface is not initialized")
-                    address = int(board_config['i2c_address'], 16)
-                    self.boards[board_id] = ADS1115Wrapper(self.i2c, address)
-                    logger.info(f"Board {board_id} initialized successfully")
-                except Exception as e:
-                    logger.error(f"Failed to initialize board {board_id}: {str(e)}")
-                    return None
+                ads_class = ADS1115Wrapper
+            elif board_config['type'] == 'ADS1015':
+                ads_class = ADS1015Wrapper
             else:
                 logger.error(f"Unsupported board type: {board_config['type']}")
+                return None
+            
+            try:
+                if self.i2c is None:
+                    raise ValueError("I2C interface is not initialized")
+                address = int(board_config['i2c_address'], 16)
+                self.boards[board_id] = ads_class(self.i2c, address)
+                logger.info(f"Board {board_id} initialized successfully")
+            except Exception as e:
+                logger.error(f"Failed to initialize board {board_id}: {str(e)}")
                 return None
         return self.boards.get(board_id)
 
@@ -252,7 +265,7 @@ class CalibrationTool:
 
         # Generate filename with device name and timestamp
         device_name = device['id']
-        filename = f"tools/test_data/{device_name}_{timestamp}_analysis.png"
+        filename = f"_test_data/Voltage_Sensor_Calibrator/{device_name}_{timestamp}_analysis.png"
         
         plt.savefig(filename, bbox_inches='tight', dpi=300)
         logger.info(f"Calibration analysis visualization saved as {filename}")
@@ -261,7 +274,7 @@ class CalibrationTool:
 
     def save_calibration_data_xml(self, device, off_data, on_data):
         # Create a directory for calibration data if it doesn't exist
-        os.makedirs('tools/test_data', exist_ok=True)
+        os.makedirs('_test_data/Voltage_Sensor_Calibrator', exist_ok=True)
 
         # Generate base filename with device name and timestamp
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -270,7 +283,7 @@ class CalibrationTool:
 
         # Function to create and save XML for a dataset
         def save_xml(data, state):
-            filename = f"tools/test_data/{base_filename}_{state}.xml"
+            filename = f"_test_data/Voltage_Sensor_Calibrator/{base_filename}_{state}.xml"
             root = ET.Element("CalibrationData")
             ET.SubElement(root, "DeviceID").text = device['id']
             ET.SubElement(root, "DeviceLabel").text = device['label']

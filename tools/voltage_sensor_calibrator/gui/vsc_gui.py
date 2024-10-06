@@ -69,6 +69,12 @@ class CalibrationToolGUI(QWidget):
         self.percentage_spinbox.setSingleStep(5)
         param_layout.addRow("Percentage:", self.percentage_spinbox)
 
+        self.duration_spinbox = QSpinBox()
+        self.duration_spinbox.setRange(10, 300)  # 10 seconds to 5 minutes
+        self.duration_spinbox.setSingleStep(10)
+        self.duration_spinbox.setValue(60)  # Default to 60 seconds
+        param_layout.addRow("Test Duration (s):", self.duration_spinbox)
+
         param_group.setLayout(param_layout)
         layout.addWidget(param_group)
 
@@ -151,7 +157,8 @@ class CalibrationToolGUI(QWidget):
     def start_off_calibration(self):
         self.status_label.setText("Collecting OFF state data...")
         pin = self.current_device['connection']['pin']
-        self.collection_thread = DataCollectionThread(self.ads, pin, 60, 860)
+        duration = self.duration_spinbox.value()
+        self.collection_thread = DataCollectionThread(self.ads, pin, duration, 860)
         self.collection_thread.progress_update.connect(self.update_progress)
         self.collection_thread.collection_complete.connect(self.off_calibration_complete)
         self.collection_thread.error_occurred.connect(self.handle_error)
@@ -183,7 +190,8 @@ class CalibrationToolGUI(QWidget):
     def start_on_calibration(self):
         self.status_label.setText("Collecting ON state data...")
         pin = self.current_device['connection']['pin']
-        self.collection_thread = DataCollectionThread(self.ads, pin, 60, 128)
+        duration = self.duration_spinbox.value()
+        self.collection_thread = DataCollectionThread(self.ads, pin, duration, 128)
         self.collection_thread.progress_update.connect(self.update_progress)
         self.collection_thread.collection_complete.connect(self.on_calibration_complete)
         self.collection_thread.error_occurred.connect(self.handle_error)

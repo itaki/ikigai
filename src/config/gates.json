@@ -134,7 +134,7 @@
         "status": "closed",
         "io_location": {
             "board": "island_pwm_servo",
-            "pin": 3
+            "pin": 2
         },
         "min": 25,
         "max": 140
@@ -144,7 +144,7 @@
         "status": "closed",
         "io_location": {
             "board": "island_pwm_servo",
-            "pin": 4
+            "pin": 3
         },
         "min": 70,
         "max": 120

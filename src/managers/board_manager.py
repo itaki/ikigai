@@ -1,6 +1,6 @@
 from boards.mcp23017 import MCP23017
 from boards.pca9685 import PCA9685
-from boards.ads1115 import ADS1115
+from boards.ads_base import ADS1115, ADS1015
 from loguru import logger
 import smbus2
 
@@ -35,6 +35,8 @@ class BoardManager:
                 board = PCA9685(self.i2c, board_config, app_config)
             elif board_type == "ADS1115" and use_boards.get("USE_ADS1115", False):
                 board = ADS1115(self.i2c, board_config, app_config)
+            elif board_type == "ADS1015" and use_boards.get("USE_ADS1015", False):
+                board = ADS1015(self.i2c, board_config, app_config)
             else:
                 logger.error(f"❌ Unknown or disabled board type '{board_type}' for board '{label}'")
                 return None
