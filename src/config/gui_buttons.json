@@ -1,0 +1,79 @@
+[
+    {
+        "label": "Hose GUI Button",
+        "type": "gui_button",
+        "id": "hose_gui_button",
+        "physical_location": "GUI",
+        "preferences": {
+            "use_collector": ["main_collector"],
+            "gate_prefs": ["HOSE", "Corner_Branch"],
+            "spin_down_time": 5
+        }
+    },
+    {
+        "label": "Overhead Hose GUI Button",
+        "type": "gui_button",
+        "id": "overhead_hose_gui_button",
+        "physical_location": "GUI",
+        "preferences": {
+            "use_collector": ["main_collector"],
+            "gate_prefs": ["Everest_Access", "Island_Branch_Overhead_Arm"],
+            "spin_down_time": 0
+        }   
+    },
+    {
+        "label": "Router Table GUI Button",
+        "type": "gui_button",
+        "id": "router_table_gui_button",
+        "physical_location": "GUI",
+        "preferences": {
+            "use_collector": ["main_collector"],
+            "gate_prefs": ["Router_Table", "Black_Diamond", "Everest_Access"],
+            "spin_down_time": 0
+        }   
+    },
+    {
+        "label": "Miter Saw GUI Button",
+        "type": "gui_button",
+        "id": "miter_saw_gui_button",
+        "physical_location": "GUI",
+        "preferences": {
+            "use_collector": ["main_collector"],
+            "gate_prefs": ["MiterSaw", "MiterSaw_Right", "MiterSaw_Left"],
+            "spin_down_time": 10
+        }
+    },
+    {
+        "label": "Band Saw GUI Button",
+        "type": "gui_button",
+        "id": "band_saw_gui_button",
+        "physical_location": "GUI",
+        "preferences": {
+            "use_collector": ["main_collector"],
+            "gate_prefs": ["BandSaw", "Corner_Branch"],
+            "spin_down_time": 10
+        }
+    },
+    {
+        "label": "Table Saw GUI Button",
+        "type": "gui_button",
+        "id": "table_saw_gui_button",
+        "physical_location": "GUI",
+        "preferences": {
+            "use_collector": ["main_collector"],
+            "gate_prefs": ["Table_Saw_Main", "Black_Diamond", "Everest_Access"],
+            "spin_down_time": 10
+        }
+    },
+    {
+        "label": "Planer GUI Button",
+        "type": "gui_button",
+        "id": "planer_gui_button",
+        "physical_location": "GUI",
+        "preferences": {
+            "use_collector": ["main_collector"],
+            "gate_prefs": ["Planer", "Black_Diamond", "Everest_Access"],
+            "spin_down_time": 10
+        }
+    }
+]

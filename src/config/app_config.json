@@ -1,5 +1,5 @@
 {
-    "USE_GUI": false,
+    "USE_GUI": true,
     "USE_BOARDS": {
         "USE_ADS1115": true,
         "USE_MCP23017": true,
@@ -11,7 +11,8 @@
         "USE_RGB_LEDS": true,
         "USE_DUST_COLLECTORS": true,
         "USE_RELAYS": false,
-        "USE_GATES": true
+        "USE_GATES": true,
+        "USE_GUI_BUTTONS": true
     },
     "ADS1115_SETTINGS": {
         "NORMAL_DATA_RATE": 128,

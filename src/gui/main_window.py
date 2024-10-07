@@ -1,5 +1,5 @@
 # gui/main_window.py
-from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QGridLayout, QLabel
+from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QGridLayout, QLabel, QPushButton
 from PyQt6.QtCore import Qt, QTimer
 from .device_widget import DeviceWidget
 
@@ -37,6 +37,24 @@ class MainWindow(QMainWindow):
         footer_layout.addWidget(QLabel('System Status: Running', alignment=Qt.AlignmentFlag.AlignLeft))
         main_layout.addLayout(footer_layout)
 
+        # Add GUI Buttons Section
+        self.gui_buttons_layout = QVBoxLayout()
+        gui_buttons_group = QWidget()
+        gui_buttons_group.setLayout(self.gui_buttons_layout)
+        self.gui_buttons_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
+        self.devices_layout.addWidget(gui_buttons_group)
+
+        self.gui_button_widgets = {}
+
+        # Initialize GUI Buttons if enabled
+        if self.app_state.device_manager.use_devices.get("USE_GUI_BUTTONS", False):
+            for button_id, gui_button in self.app_state.device_manager.gui_button_manager.items():
+                button = QPushButton(gui_button.label)
+                button.setCheckable(True)
+                button.clicked.connect(lambda checked, b=gui_button: self.on_gui_button_clicked(b, checked))
+                self.gui_buttons_layout.addWidget(button)
+                self.gui_button_widgets[button_id] = button
+
     def update_device_widgets(self):
         devices = self.app_state.get_all_devices()
         for i, (device_id, device) in enumerate(devices.items()):
@@ -51,3 +69,9 @@ class MainWindow(QMainWindow):
             widget = self.findChild(DeviceWidget, device_id)
             if widget:
                 widget.update_state(self.app_state.get_device_state(device_id))
+
+    def on_gui_button_clicked(self, gui_button, checked):
+        gui_button.toggle()
+        button_widget = self.gui_button_widgets[gui_button.button_id]
+        button_widget.setChecked(gui_button.state)
+        button_widget.setStyleSheet("background-color: lightgreen;" if gui_button.state else "")
