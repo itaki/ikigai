@@ -14,7 +14,6 @@ class VoltageSensor:
         self.readings = []
         self.state = 'off'
         self.error_count = 0
-        self.status = "Initializing"
 
     def set_board(self, board):
         self.board = board
@@ -54,22 +53,11 @@ class VoltageSensor:
     def get_state(self):
         return self.state
 
-    def get_status(self):
-        return {
-            "id": self.id,
-            "label": self.label,
-            "state": self.state,
-            "sd_threshold": self.sd_threshold,
-            "current_std": np.std(self.readings) if self.readings else None,
-            "status": self.status
-        }
-    
     def cleanup(self):
-        self.status = "Cleaned up"
+        logger.debug(f"🧹 Cleaning up Voltage Sensor {self.id}")
 
     def reset(self):
         self.readings = []
         self.state = 'off'
         self.error_count = 0
-        self.status = "Reset"
         logger.info(f"🔄 Voltage Sensor {self.id} reset")

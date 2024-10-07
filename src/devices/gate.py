@@ -17,8 +17,8 @@ class Gate:
         self.pin = gate_info['io_location']['pin']
         self.min_angle = gate_info['min']
         self.max_angle = gate_info['max']
-        self.status = gate_info['status']
-        self.previous_status = gate_info['status']
+        self.state = gate_info['state']
+        self.previous_state = gate_info['state']
 
         if not hasattr(self.board, 'set_servo_angle'):
             logger.warning(f"🌟 Board {board_id} for gate {self.name} does not support servo control.")
@@ -42,7 +42,7 @@ class Gate:
         try:
             pwm_value = self.angle_to_pwm(self.max_angle)
             self.board.set_pwm_value(self.pin, pwm_value)
-            self.update_status("open")
+            self.update_state("open")
         except Exception as e:
             logger.error(f"💢 Failed to open gate {self.name}: {e}")
 
@@ -51,15 +51,15 @@ class Gate:
             logger.debug(f'      🚥 ⛩️  Closing {self.name}')
             pwm_value = self.angle_to_pwm(self.min_angle)
             self.board.set_pwm_value(self.pin, pwm_value)
-            self.update_status("closed")
+            self.update_state("closed")
         except Exception as e:
             logger.error(f"💢 Failed to close gate {self.name}: {e}")
 
-    def update_status(self, new_status):
-        if self.previous_status != new_status:
-            self.previous_status = new_status
-            self.status = new_status
-            logger.info(f"⛩️ 🔮 Gate {self.name} {new_status}.")
+    def update_state(self, new_state):
+        if self.previous_state != new_state:
+            self.previous_state = new_state
+            self.state = new_state
+            logger.info(f"⛩️ 🔮 Gate {self.name} {new_state}.")
 
     def identify(self):
         if hasattr(self.board, 'set_pwm_value'):
@@ -70,7 +70,10 @@ class Gate:
                 time.sleep(0.2)
                 self.board.set_pwm_value(self.pin, pwm_value_high)
                 time.sleep(0.2)
-            if self.status == 'open':
+            if self.state == 'open':
                 self.open()
             else:
                 self.close()
+
+    def get_state(self):
+        return self.state

@@ -28,9 +28,11 @@ def initialize_gui(board_manager, device_manager):
         from PyQt6.QtWidgets import QApplication
         logger.info("🖥️ Initializing GUI")
         app = QApplication([])
+        logger.info("🖥️ QApplication initialized")
         app_state = AppState(board_manager, device_manager)
+        logger.info("🖥️ AppState initialized")
         main_window = MainWindow(app_state)
-        logger.info("🖥️ GUI initialized")
+        logger.info("🖥️ MainWindow initialized")
         return app, main_window
     return None, None
 
@@ -63,8 +65,10 @@ def main():
         logger.info("🔌 I2C interface initialized")
 
         board_manager, device_manager = initialize_managers(i2c)
+        logger.info("🔧 Managers initialized: BoardManager, DeviceManager")
 
         app, main_window = initialize_gui(board_manager, device_manager)
+        logger.info("🖥️ GUI initialized")
 
         if USE_GUI:
             main_window.show()

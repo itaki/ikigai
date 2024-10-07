@@ -50,3 +50,6 @@ class RGBLED:
     def cleanup(self):
         self.turn_off()
         logger.debug(f"💡 RGB LED '{self.label}' cleaned up")
+
+    def get_state(self):
+        return self.state

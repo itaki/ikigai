@@ -1,4 +1,9 @@
 from PyQt6.QtCore import QObject, pyqtSignal
+import time
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 class GuiButton(QObject):
     state_changed = pyqtSignal(str, bool)  # button_id, new_state
@@ -13,9 +18,13 @@ class GuiButton(QObject):
         self.device_manager = device_manager
         self.state = False  # False: Off, True: On
         self._parent_manager = None  # Add this line
+        self.last_activated = None  # Add this line
 
     def set_parent_manager(self, manager):
         self._parent_manager = manager  # Add this method
+
+    def get_state(self):
+        return self.state
 
     def toggle(self):
         self.state = not self.state
@@ -26,17 +35,12 @@ class GuiButton(QObject):
             self.deactivate()
 
     def activate(self):
-        # Activate gates
-        for gate_id in self.gate_prefs:
-            self.device_manager.gate_manager.open_gate(gate_id)
-        # Turn on dust collectors
-        for collector_id in self.use_collector:
-            self.device_manager.dust_collector_manager.turn_on_collector(collector_id)
+        self.state = True
+        self.last_activated = time.time()
+        logger.info(f"🖱️ GUI Button '{self.label}' activated")
+        self.state_changed.emit(self.button_id, self.state)
 
     def deactivate(self):
-        # Deactivate gates
-        for gate_id in self.gate_prefs:
-            self.device_manager.gate_manager.close_gate(gate_id)
-        # Turn off dust collectors after spin_down_time
-        for collector_id in self.use_collector:
-            self.device_manager.dust_collector_manager.turn_off_collector_with_delay(collector_id, self.spin_down_time)
+        self.state = False
+        logger.info(f"🖱️ GUI Button '{self.label}' deactivated")
+        self.state_changed.emit(self.button_id, self.state)

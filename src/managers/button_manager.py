@@ -71,11 +71,11 @@ class ButtonManager:
         logger.info(f"Button {button.label} toggled to {button.state}")
         # Here you can add any additional logic or callbacks when a button state changes
 
-    def get_button_status(self, button_id):
+    def get_button_state(self, button_id):
         button = self.buttons.get(button_id)
         return button.state if button else None
 
-    def get_all_button_statuses(self):
+    def get_all_button_states(self):
         return {button_id: button.state for button_id, button in self.buttons.items()}
 
     def cleanup(self):

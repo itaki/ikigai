@@ -33,15 +33,26 @@ class Button:
             if self.pin:
                 return not self.pin.value  # Invert because we're using pull-up resistors
             else:
-                if error_logged is False:
+                if not self.error_logged:
                     logger.error(f"💢 🔘 Pin not set up for button {self.label}")
-                    error_logged = True
+                    self.error_logged = True
                 return None
         except Exception as e:
-            if self.error_logged is False:
+            if not self.error_logged:
                 logger.error(f"💢 🔘 Error reading pin {self.pin_number} for button {self.label}: {e}")
                 self.error_logged = True
             return None
+
+    def get_state(self):
+        return self.state
+
+    def update_state(self):
+        pin_state = self.read_pin()
+        if pin_state is not None:
+            new_state = 'pressed' if pin_state else 'released'
+            if new_state != self.state:
+                self.state = new_state
+                logger.info(f"🔘 Button {self.label} state changed to: {self.state}")
 
     def cleanup(self):
         logger.debug(f"🧹 🔘 Cleaning up Button {self.label}")

@@ -21,7 +21,7 @@ class GateManager:
                     continue
                 try:
                     self.gates[gate_id] = Gate(gate_id, gate_config, self.boards)
-                    self.previous_gate_states[gate_id] = gate_config['status']  # Initialize previous state
+                    self.previous_gate_states[gate_id] = gate_config['state']  # Initialize previous state
                     logger.info(f"✅ ⛩️  Gate {gate_id} initialized on board {board_id}")
                 except Exception as e:
                     logger.error(f"💢 Error initializing gate {gate_id}: {str(e)}")
@@ -84,7 +84,7 @@ class GateManager:
 
     def view_gates(self):
         for gate_name, gate in self.gates.items():
-            logger.debug(f'Gate: {gate_name}, Status: {gate.status}, '
+            logger.debug(f'Gate: {gate_name}, state: {gate.state}, '
                          f'Board: {gate.board}, Pin: {gate.pin}, '
                          f'Min: {gate.min_angle}, Max: {gate.max_angle}')
 
@@ -92,7 +92,7 @@ class GateManager:
         open_gates = []
         active_tool = None
         for current_tool in tools:
-            if current_tool.status != 'off':
+            if current_tool.state != 'off':
                 active_tool = current_tool
                 for gate_pref in current_tool.gate_prefs:
                     if gate_pref in self.gates and gate_pref not in open_gates:
